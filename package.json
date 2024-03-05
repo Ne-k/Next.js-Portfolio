@@ -10,8 +10,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@fontsource/jost": "^4.5.6",
-    "@fontsource/sen": "^4.5.3",
+    "@fontsource/jost": "^5.0.0",
+    "@fontsource/sen": "^5.0.0",
     "@types/node": "^18.0.0",
     "axios": "^1.0.0",
     "isomorphic-unfetch": "^4.0.0",
