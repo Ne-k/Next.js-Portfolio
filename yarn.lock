@@ -220,15 +220,15 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fontsource/jost@^4.5.6":
-  version "4.5.13"
-  resolved "https://registry.npmjs.org/@fontsource/jost/-/jost-4.5.13.tgz"
-  integrity sha512-StvM74Eny5ZkioanZ3JV6RgjTfMnB7mGde1SVoJGUrudxGPCp6kRXRm4CgwgJYarDzLt+jSPESLufHhRVemjrA==
+"@fontsource/jost@^5.0.0":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/jost/-/jost-5.2.5.tgz#f700e1b38d424983f737bd4b3795005cdd83d364"
+  integrity sha512-I401plUl7UlpOKWCdYFrfNB73UOiQv17RRFguWuD1ZmE5sWRsO39sCYQO8SV/U45B7brvD0DQPcL8UmvbbOMPw==
 
-"@fontsource/sen@^4.5.3":
-  version "4.5.9"
-  resolved "https://registry.npmjs.org/@fontsource/sen/-/sen-4.5.9.tgz"
-  integrity sha512-QN+pW9fq+XNQoVwjrzxlZELSMSaKxUHlFJ1NApNr8b/KyGvRAL+hNVMhT1jBamtzkcI09yiGq7hdnEfo66rFog==
+"@fontsource/sen@^5.0.0":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/sen/-/sen-5.2.5.tgz#55190d001e65f7b079dfd721cb3e20af27723a00"
+  integrity sha512-M8kOJq34A6mxriWD41ZvuE9dj/uS8ETQXhmQtbo7BXaRmRlGR5NUvFseOez8GQHiL5opJqdfIbPvKPoYiyrE+w==
 
 "@gitmoji/commit-types@1.1.5":
   version "1.1.5"
