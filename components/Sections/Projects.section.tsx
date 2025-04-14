@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import {HiOutlineArrowNarrowRight} from "react-icons/hi";
+import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
 const Projects = () => {
     const [repos, setRepos] = useState([]);
@@ -66,7 +66,6 @@ const Projects = () => {
         ['#A8E6CF', '#FDFFAB'], // mint green and pastel yellow
     ];
 
-
     const getRandomPastelGradient = () => {
         const randomIndex = Math.floor(Math.random() * pastelColors.length);
         return pastelColors[randomIndex];
@@ -81,7 +80,7 @@ const Projects = () => {
                     </span>
                 </Link>
             </p>
-            <div className="my-8 flex flex-col items-center justify-center gap-10 sm:flex-row">
+            <div className="my-8 flex flex-wrap items-center justify-center gap-10 px-4 sm:px-8">
                 {repos.map(repo => {
                     const [colorStart, colorEnd] = getRandomPastelGradient();
                     return (
@@ -98,7 +97,12 @@ const Projects = () => {
                         >
                             <div
                                 className="flex h-full w-auto flex-col items-center justify-center rounded-lg bg-primary px-2 py-2 text-center font-medium">
-                                <p className="project-name text-lg font-semibold break-all">{repo.name}</p>
+                                <p
+                                    className="project-name text-lg font-semibold px-4 py-2 overflow-hidden text-ellipsis whitespace-nowrap"
+                                    style={{ minWidth: '10rem' }}
+                                >
+                                    {repo.name}
+                                </p>
                                 <p className="project-description text-sm break-words">{repo.description || 'No description available.'}</p>
                             </div>
                         </Link>

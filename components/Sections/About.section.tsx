@@ -12,14 +12,18 @@ const About: NextComponentType = () => {
           <div className="my-8 flex flex-row items-center justify-between px-3 font-sen">
               <div>
                   <p className="text-3xl font-bold text-white">Cardin Nguyen</p>
-                  <p className="mt-1 text-lg text-gray-300">
-                      Backend developer, photographer, and student. Online I&apos;m known as &quot;Nek&quot;
-                  </p>
+                    <p className="mt-1 text-lg text-gray-300">
+                    Backend developer, photographer, student, and cybersecurity enthusiast specializing in penetration testing and forensics. 
+                    </p>
 
-                  <p className="mt-4 text-gray-400">
-                      I&apos;m a backend developer who&apos;s been<br/> designing and coding successful <br/> projects
-                      for more than 5+ years.
-                  </p>
+                    <p className="mt-1 text-lg text-gray-300">
+                        Online I&apos;m known as &quot;Nek&quot;
+                    </p>
+                
+                    <p className="mt-4 text-gray-400">
+                    I&apos;m a backend developer who&apos;s been<br/> designing and coding successful <br/> projects
+                    for more than 5+ years.
+                     </p>
 
                   <Link
                       href="/resume"

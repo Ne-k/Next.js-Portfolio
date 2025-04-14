@@ -6,6 +6,7 @@ import {SiTypescript} from "react-icons/si";
 import {FiCamera} from "react-icons/fi";
 import { FaDiscord, FaInstagram, FaJava, FaPython, FaNodeJs, FaReact, } from "react-icons/fa";
 import { VscGithubAlt } from "react-icons/vsc";
+import { FaShieldAlt } from "react-icons/fa";
 
 export {
   BsSpotify,
@@ -15,12 +16,13 @@ export {
   HiOutlineArrowNarrowRight,
   BsArrowRightShort,
   FaDiscord,
-    FaInstagram,
+  FaInstagram,
   VscGithubAlt,
-    FaJava,
-    FaPython,
-    FaNodeJs,
-    FaReact,
-    SiTypescript,
-    FiCamera
+  FaJava,
+  FaPython,
+  FaNodeJs,
+  FaReact,
+  SiTypescript,
+  FiCamera,
+  FaShieldAlt,
 };
