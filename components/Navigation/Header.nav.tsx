@@ -30,7 +30,6 @@ const Header: NextComponentType = () => {
         <TextLink text="Home" url="#" />
         <TextLink text="Skills" url="#skills" />
         <TextLink text="Projects" url="#projects" />
-        <TextLink text="Gallery" url="https://nekkgallery.vercel.app/" />
         <TextLink text="Contact" url="#contact" />
       </p>
     </header>
