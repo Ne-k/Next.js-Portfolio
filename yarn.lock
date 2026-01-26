@@ -243,15 +243,15 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.1.tgz#de633db3ec2ef6a3c89e2f19038063e8a122e2c2"
   integrity sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==
 
-"@fontsource/jost@^4.5.6":
-  version "4.5.13"
-  resolved "https://registry.yarnpkg.com/@fontsource/jost/-/jost-4.5.13.tgz#8dfed7828f336b98119671be3c0bd47071d9daeb"
-  integrity sha512-StvM74Eny5ZkioanZ3JV6RgjTfMnB7mGde1SVoJGUrudxGPCp6kRXRm4CgwgJYarDzLt+jSPESLufHhRVemjrA==
+"@fontsource/jost@^5.0.0":
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/jost/-/jost-5.2.8.tgz#4011b40d8656af3e0d0706d92618e80f96f3922d"
+  integrity sha512-PEK7oGJL8r+YZm6BriWhmCql9DhVYTMt0iEQbZHo8mqfIPIZo67Tm68xEIaRA0yB3wsHA7Tm66yMQDIxq3Bjqw==
 
-"@fontsource/sen@^4.5.3":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@fontsource/sen/-/sen-4.5.9.tgz#2a1bd456200b1bf6eed34e11a2862baf69dea451"
-  integrity sha512-QN+pW9fq+XNQoVwjrzxlZELSMSaKxUHlFJ1NApNr8b/KyGvRAL+hNVMhT1jBamtzkcI09yiGq7hdnEfo66rFog==
+"@fontsource/sen@^5.0.0":
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/sen/-/sen-5.2.8.tgz#ae364c0a31314c2787748195440bdc995f44fe14"
+  integrity sha512-4pQixXXOS07A/sqVagrU7lrLD9OdSYpxftgwwfCxEZRIMToYFQQZXKso1JC4LUn9G8PMuk2Bk2vIDswBFLhlRQ==
 
 "@gitmoji/commit-types@1.1.5":
   version "1.1.5"
