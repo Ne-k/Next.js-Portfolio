@@ -4,6 +4,17 @@ module.exports = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.nguyen.ink",
+          },
+        ],
+        destination: "https://nguyen.ink/:path*",
+        permanent: true,
+      },
+      {
         source: "/instagram",
         destination: "https://www.instagram.com/nekk.ng/",
         permanent: true,
@@ -31,24 +42,70 @@ module.exports = {
     ];
   },
 
-  /*
-  rewrites: async () => {
-    // In order to support wildcard subdomains with different content, use a "rewrite" to include the host in the path
+  async rewrites() {
     return [
       {
-        source: '/:path*{/}?',
+        source: "/",
         has: [
           {
-            type: 'host',
-            value: '(?<siteHost>.*)',
+            type: "host",
+            value: "nguyen.ink",
           },
         ],
-        destination: '/site/:siteHost/:path*',
+        destination: "/landing",
+      },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "localhost",
+          },
+        ],
+        destination: "/landing",
+      },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "cardin.nguyen.ink",
+          },
+        ],
+        destination: "/cardin",
+      },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "cardin.localhost",
+          },
+        ],
+        destination: "/cardin",
+      },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "dylan.nguyen.ink",
+          },
+        ],
+        destination: "/dylan",
+      },
+      {
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "dylan.localhost",
+          },
+        ],
+        destination: "/dylan",
       },
     ];
   },
-
-   */
   reactStrictMode: true,
 
   sassOptions: {
