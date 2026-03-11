@@ -8,7 +8,7 @@ import "@fontsource/jost/700.css";
 import "@fontsource/sen/400.css";
 import "@fontsource/sen/700.css";
 
-import { NextSeo } from "next-seo";
+import { generateDefaultSeo } from "next-seo/pages";
 import Head from "next/head";
 import Script from "next/script";
 
@@ -30,34 +30,33 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
                 `}
       </Script>
-      <NextSeo
-        title="Cardin | Backend Developer"
-        titleTemplate="Cardin | Backend Developer"
-        defaultTitle="Cardin | Backend Developer"
-        description="Hey! I'm Cardin, a backend developer and a student"
-        openGraph={{
-          url: "https://nekk,vercel.app",
+      <Head>
+        {generateDefaultSeo({
           title: "Cardin | Backend Developer",
-          description:
-            "Hey! I'm Cardin, a backend developer and a student",
-          images: [
+          titleTemplate: "Cardin | Backend Developer",
+          defaultTitle: "Cardin | Backend Developer",
+          description: "Hey! I'm Cardin, a backend developer and a student",
+          openGraph: {
+            url: "https://nekk.vercel.app",
+            title: "Cardin | Backend Developer",
+            description: "Hey! I'm Cardin, a backend developer and a student",
+            images: [
+              {
+                url: "https://media.discordapp.net/attachments/953754034630717454/999515622801158304/image0_13.jpg",
+                width: 890,
+                height: 890,
+                alt: "Banner",
+              },
+            ],
+          },
+          additionalMetaTags: [
             {
-              url: "https://media.discordapp.net/attachments/953754034630717454/999515622801158304/image0_13.jpg",
-              width: 890,
-              height: 890,
-              alt: "Banner",
+              property: "keywords",
+              content:
+                "Backend Developer, Nek, Cardin Nguyen, Web Developer, web development, web developer, tech enthusiast",
             },
           ],
-        }}
-        additionalMetaTags={[
-          {
-            property: "keywords",
-            content:
-              "Backend Developer, Nek, Cardin Nguyen, Web Developer, web development, web developer, tech enthusiast",
-          },
-        ]}
-      />
-      <Head>
+        })}
         <link rel="icon" type="image/png" href="/assests/avatar.png" />
       </Head>
       <Component {...pageProps} />

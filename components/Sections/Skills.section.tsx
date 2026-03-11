@@ -1,4 +1,4 @@
-import { BsArrowRightShort, FaJava, FaNodeJs, SiTypescript, FiCamera, FaShieldAlt } from "../Misc/Icons.collection";
+import { FaJava, FaNodeJs, SiTypescript, FiCamera, FaShieldAlt } from "../Misc/Icons.collection";
 import { SiPython } from "react-icons/si";
 
 const Skills = () => {

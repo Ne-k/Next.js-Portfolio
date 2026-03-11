@@ -1,13 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #010101;
+  --font-jost: "Jost", sans-serif;
+  --font-sen: "Sen", sans-serif;
+  --breakpoint-custom: 400px;
+}
 
 * {
   scroll-behavior: smooth;
 }
 
-@layer base {
-  body {
-    @apply bg-zinc-900;
-  }
+body {
+  @apply bg-zinc-900;
 }

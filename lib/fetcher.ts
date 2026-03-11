@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const fetcher = async<JSON> (url: string): Promise<JSON> => {
-    const res = await axios.get(url)
-    return res.data
-}
+const fetcher = async <T,>(url: string): Promise<T> => {
+    const response = await axios.get<T>(url);
+    return response.data;
+};
 
-export { fetcher }
+export { fetcher };

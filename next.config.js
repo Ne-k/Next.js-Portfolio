@@ -3,33 +3,32 @@ const path = require("path");
 module.exports = {
   async redirects() {
     return [
-
       {
-        source: '/instagram',
-        destination: 'https://www.instagram.com/nekk.ng/',
-        permanent: true
+        source: "/instagram",
+        destination: "https://www.instagram.com/nekk.ng/",
+        permanent: true,
       },
       {
-        source: '/github',
-        destination: 'https://github.com/Ne-k',
-        permanent: true
+        source: "/github",
+        destination: "https://github.com/Ne-k",
+        permanent: true,
       },
       {
-        source: '/spotify',
-        destination: 'https://open.spotify.com/user/mewz8iujhbqn1rwndb37q7tda',
-        permanent: true
+        source: "/spotify",
+        destination: "https://open.spotify.com/user/mewz8iujhbqn1rwndb37q7tda",
+        permanent: true,
       },
       {
-        source: '/linkedin',
-        destination: 'https://www.linkedin.com/in/cardin-nguyen-378107238 ',
-        permanent: true
+        source: "/linkedin",
+        destination: "https://www.linkedin.com/in/cardin-nguyen-378107238",
+        permanent: true,
       },
       {
-        source: '/resume',
-        destination: '/CN_Resume.pdf',
-        permanent: true
-      }
-    ]
+        source: "/resume",
+        destination: "/CN_Resume.pdf",
+        permanent: true,
+      },
+    ];
   },
 
   /*
@@ -56,6 +55,15 @@ module.exports = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ["cdn.discordapp.com", "i.scdn.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.discordapp.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+      },
+    ],
   },
 };
