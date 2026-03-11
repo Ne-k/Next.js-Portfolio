@@ -26,12 +26,10 @@ const DylanPage: NextPage = () => {
               Dylan Nguyen
             </p>
             <h1 className="mt-6 max-w-2xl font-jost text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-              This space is reserved and ready for a full profile.
+              This page is coming soon...
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-              The domain is wired up and the placeholder is live. Once Dylan&apos;s
-              content is ready, this page can be replaced with the finished site
-              without changing the domain structure.
+              For now, this is just a placeholder for Dylan Nguyen, once the full site is ready, it will be launched here. Stay tuned for updates!
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -40,12 +38,6 @@ const DylanPage: NextPage = () => {
                 className="rounded-full border border-white/15 bg-white/8 px-5 py-3 font-jost text-sm uppercase tracking-[0.25em] text-white transition hover:border-white/30 hover:bg-white/12"
               >
                 Back to Nguyen.ink
-              </a>
-              <a
-                href="https://cardin.nguyen.ink"
-                className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-5 py-3 font-jost text-sm uppercase tracking-[0.25em] text-cyan-100 transition hover:border-cyan-200/45 hover:bg-cyan-300/15"
-              >
-                Visit Cardin&apos;s site
               </a>
             </div>
           </section>
