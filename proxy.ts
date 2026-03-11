@@ -2,10 +2,8 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 const hostRouteMap = new Map([
-  ["nguyen.ink", "/landing"],
   ["cardin.nguyen.ink", "/cardin"],
   ["dylan.nguyen.ink", "/dylan"],
-  ["localhost", "/landing"],
   ["cardin.localhost", "/cardin"],
   ["dylan.localhost", "/dylan"],
 ]);
