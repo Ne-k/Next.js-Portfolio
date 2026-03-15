@@ -9,45 +9,44 @@ const Skills = () => {
       <div className="text-md my-8 flex flex-col font-medium md:text-xl custom:text-lg">
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <FiCamera size="30" />
-          <span className="text-white">Photography</span>
-          &nbsp;I enjoy capturing the moments with a Sony A7RIV as a hobby, occasionally shooting sports photography
+          <span className="text-white">Photography and Videography</span>
+          &nbsp;I do photography on Sony A7RIV and shoot video on A7IV, including occasional sports shoots.
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <FaNodeJs size="30" />
-          <span className="text-white">Javascript </span>
-          &nbsp; Small projects and web development
+          <span className="text-white">JavaScript </span>
+          &nbsp;Used for backend services, small tools, and web applications.
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <SiTypescript size="30" />
-          <span className="text-white">Typescript </span>
-          &nbsp; Mostly used for webapps such as NextJS or vite
+          <span className="text-white">TypeScript </span>
+          &nbsp;Primarily used for Next.js and Vite-based web applications.
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <SiPython size="30" />
           <span className="text-white">Python </span>
-          &nbsp; Autonomation scripts and small projects
+          &nbsp;Automation scripts, security tooling, and smaller projects.
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <FaJava size="30" />
           <span className="text-white">Java </span>
-          &nbsp; the language mainly used in First Robotics Competition (FRC).
+          &nbsp;Primary language used in the First Robotics Competition (FRC).
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <FaShieldAlt size="30" />
           <span className="text-white">Cybersecurity </span>
-          &nbsp; Skills in penetration testing and digital forensics
+          &nbsp;Hands-on experience in penetration testing and digital forensics.
         </p>
       </div>
 
       <p className="text-lg font-medium text-slate-300">
-        ...more skills include <span className="text-white">NextJS</span>,{" "}
-        <span className="text-white">Reactjs</span>,{" "}
-        <span className="text-white">C++ </span>{" "}
+        ...additional skills include <span className="text-white">Next.js</span>,{" "}
+        <span className="text-white">React</span>, and <span className="text-white">C++</span>
       </p>
     </div>
   );

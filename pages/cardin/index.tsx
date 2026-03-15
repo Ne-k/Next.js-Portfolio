@@ -8,7 +8,7 @@ import {
   Skills,
   Contact,
   NowPlaying,
-} from "../../components";
+} from "../../components/Cardin";
 
 const CardinPage: NextPage = () => {
   return (

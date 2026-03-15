@@ -13,9 +13,7 @@ const TextLink = ({ text, url }: linkProps) => {
 
 const Header = () => {
   return (
-    <header
-      className={`font-jost py-8 sm:flex sm:flex-row sm:items-center sm:justify-between`}
-    >
+    <header className="font-jost py-8 sm:flex sm:flex-row sm:items-center sm:justify-between">
       <p className="hidden sm:flex sm:flex-row sm:gap-x-4">
         <TextLink text="Home" url="#" />
         <TextLink text="Skills" url="#skills" />
