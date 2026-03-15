@@ -37,7 +37,6 @@ const Projects = () => {
 
         const data: Repository[] = await response.json();
         const filteredRepos = data
-          .filter((repo) => !repo.fork)
           .sort(
             (left, right) =>
               new Date(right.pushed_at).getTime() - new Date(left.pushed_at).getTime(),

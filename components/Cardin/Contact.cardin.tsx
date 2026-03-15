@@ -12,7 +12,7 @@ const Contact = () => {
         <Icon icon={<FaDiscord />} url="https://discord.com/users/399703609685835778" />
         <Icon icon={<FaInstagram />} url="/instagram" />
         <Icon icon={<BsSpotify />} url="/spotify" />
-        <Icon icon={<MdEmail />} url="mailto:Nekk.ng3@gmail.com" />
+        <Icon icon={<MdEmail />} url="mailto:cardin@nguyen.ink" />
       </div>
     </div>
   );
