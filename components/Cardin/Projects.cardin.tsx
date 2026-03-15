@@ -102,14 +102,14 @@ const Projects = () => {
                   background: `linear-gradient(to right, ${colorStart}, ${colorEnd})`,
                 }}
               >
-                <div className="relative flex w-full flex-col items-center justify-center rounded-lg bg-primary px-2 py-2 text-center font-medium">
+                <div className="relative flex w-full flex-col items-center justify-center gap-1 rounded-lg bg-primary px-2 pb-2 pt-7 text-center font-medium">
                   {repo.archived && (
                     <span className="absolute right-2 top-2 rounded-full border border-yellow-300/60 bg-yellow-400/20 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-yellow-200">
                       Archived
                     </span>
                   )}
                   <p
-                    className="project-name overflow-hidden px-4 py-2 text-lg font-semibold text-ellipsis whitespace-nowrap"
+                    className="project-name overflow-hidden px-4 text-lg font-semibold text-ellipsis whitespace-nowrap"
                     style={{ minWidth: "10rem" }}
                   >
                     {repo.name}
