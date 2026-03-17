@@ -10,7 +10,7 @@ const Skills = () => {
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
           <FiCamera size="30" />
           <span className="text-white">Photography and Videography</span>
-          &nbsp;I do photography on Sony A7RIV and shoot video on A7IV, including occasional sports shoots.
+          &nbsp;I shoot on a Sony A7RIV for stills and an A7IV for video, with experience ranging from creative shoots to occasional sports coverage.
         </p>
 
         <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
