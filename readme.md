@@ -8,4 +8,4 @@ cd Next.js-Portfolio
 npm install
 ```
 
-[Live view can be found here](https://nekk.vercel.app)
+[Live view can be found here](https://nguyen.ink)
