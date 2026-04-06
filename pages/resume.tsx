@@ -10,5 +10,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const ResumePage = () => null;
-
+// rebuild
 export default ResumePage;
