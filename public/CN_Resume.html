@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardin Nguyen - Resume</title>
+  <style>
+    :root {
+      --bg: #faf7fb;
+      --paper: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #555;
+      --accent: #c88fb0;
+      --accent-soft: #f9eef4;
+      --line: #e8d7e2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #fff8fc 0%, #fffdfd 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 32px auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 32px 40px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    }
+
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Cambria", serif;
+      font-size: 32px;
+      color: #111;
+      letter-spacing: 0.3px;
+    }
+
+    .contact {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    section { margin-top: 22px; }
+
+    h2 {
+      font-family: "Cambria", serif;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--line);
+      color: #222;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .entry { margin-bottom: 14px; }
+
+    ul {
+      margin: 6px 0 0 18px;
+      padding: 0;
+    }
+
+    li { margin-bottom: 4px; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+    }
+
+    .skills-label {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #222;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 28px;
+    }
+
+    /* A4 PRINT OPTIMIZATION */
+    @media print {
+      @page { size: A4; margin: 0.45in; }
+
+      body { background: #fff; font-size: 10.5pt; }
+
+      .page {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+
+      h1 { font-size: 22px; }
+      h2 { font-size: 11px; }
+      h3 { font-size: 10.5pt; }
+      .meta { font-size: 9pt; }
+      .contact { font-size: 8.5pt; }
+      ul { margin-left: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <h1>Cardin Nguyen</h1>
+      <div class="contact">
+        <span>West Linn, Oregon</span>
+        <span>Phone: (971) 517-4178</span>
+        <span>Email: <a href="mailto:cardin@nguyen.ink">cardin@nguyen.ink</a></span>
+        <span>GitHub: <a href="https://github.com/Ne-k">github.com/Ne-k</a></span>
+        <span>Website: <a href="https://cardin.nguyen.ink">cardin.nguyen.ink</a></span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div>
+          <div class="skills-label">Technical Skills</div>
+          <ul>
+            <li>Cybersecurity: penetration testing, vulnerability assessment, network security, IAM</li>
+            <li>Programming: Python, Java, JavaScript, TypeScript, C++</li>
+            <li>Systems: Linux, SSH, Docker, server management</li>
+            <li>Tools: Git, Wireshark, Nmap, Burp Suite, VS Code, IntelliJ</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="skills-label">Analytical & Problem-Solving</div>
+          <ul>
+            <li>Critical thinking</li>
+            <li>Iterative refinement</li>
+            <li>Forensic analysis</li>
+            <li>Troubleshooting</li>
+          </ul>
+
+          <div class="skills-label" style="margin-top:10px;">Adaptability & Work Ethic</div>
+          <ul>
+            <li>Fast learner</li>
+            <li>Time management</li>
+            <li>Dedicated and reliable</li>
+            <li>Workflow optimization</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+
+      <div class="experience-grid">
+
+        <div class="entry">
+          <h3>Coding With Kids — Instructor</h3>
+          <div class="meta">Portland, Oregon | August 2025 – Present</div>
+          <ul>
+            <li>Deliver technical instruction and adjust pacing for diverse proficiency levels.</li>
+            <li>Translate complex programming concepts into clear, age‑appropriate explanations.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h3>IConnect007 — Videographer</h3>
+          <div class="meta">Technical Media Production | January 2023 – April 2025</div>
+          <ul>
+            <li>Operate multi‑camera setups and support live switching for events.</li>
+            <li>Optimize post‑production workflows and coordinate with production teams.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h3>FRC Robotics Team 7034 & FTC Team 10332 — Software Developer</h3>
+          <div class="meta">West Linn, Oregon | May 2021 – 2025</div>
+          <ul>
+            <li>Develop software for competitive robotics systems in collaborative team environments.</li>
+            <li>Lead technical coordination and support STEM outreach activities.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <h3>FIRST Robotics Competition — AV Crew (Volunteer)</h3>
+          <div class="meta">Event Production Support | 2026 – Present</div>
+          <ul>
+            <li>Support live event audio and video operations for robotics competitions.</li>
+            <li>Assist with equipment setup, transitions, and troubleshooting during matches.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+
+      <div class="entry">
+        <h3>Oregon State University — Corvallis, Oregon</h3>
+        <div class="meta">B.S. in Computer Science (Cybersecurity) | Expected Graduation: 2029</div>
+      </div>
+
+      <div class="entry">
+        <h3>Portland Community College — Portland, Oregon</h3>
+        <div class="meta">Foundational coursework in Computer Science & CIS | September 2025 – June 2026</div>
+      </div>
+
+      <div class="entry">
+        <h3>West Linn High School — West Linn, Oregon</h3>
+        <div class="meta">Graduated with Honors | August 2021 – June 2025</div>
+        <ul>
+          <li>Computer Science Honors Society member (one of few chapters in Oregon)</li>
+        </ul>
+      </div>
+
+    </section>
+  </main>
+</body>
+</html>

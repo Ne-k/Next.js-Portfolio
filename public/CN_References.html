@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardin Nguyen - Professional References</title>
+  <style>
+    :root {
+      --bg: #faf7fb;
+      --paper: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #555;
+      --accent: #c88fb0;
+      --accent-soft: #f9eef4;
+      --line: #e8d7e2;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #fff8fc 0%, #fffdfd 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", sans-serif;
+      line-height: 1.55;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 32px auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 32px 40px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    }
+
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Cambria", serif;
+      font-size: 32px;
+      color: #111;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .contact {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    section { margin-top: 22px; }
+
+    h2 {
+      font-family: "Cambria", serif;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--line);
+      color: #222;
+    }
+
+    .note {
+      background: var(--accent-soft);
+      border: 1px solid #e8d7e2;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      color: #333;
+    }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .ref-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 18px;
+      background: #fff;
+      transition: 0.2s ease;
+    }
+
+    .ref-card:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      transform: translateY(-1px);
+    }
+
+    .ref-name {
+      font-weight: 700;
+      font-size: 17px;
+      margin: 0;
+      color: #222;
+    }
+
+    .ref-role {
+      margin: 4px 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .ref-lines {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .ref-lines li {
+      margin-bottom: 6px;
+    }
+
+    .label {
+      color: var(--muted);
+      display: inline-block;
+      min-width: 110px;
+      font-weight: 500;
+    }
+
+    @media (min-width: 760px) {
+      .ref-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media print {
+      body { background: #fff; }
+
+      .page {
+        margin: 0;
+        padding: 16mm 14mm;
+        border: none;
+        box-shadow: none;
+      }
+
+      .ref-card:hover {
+        box-shadow: none;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <h1>Cardin Nguyen</h1>
+      <div class="subtitle">Professional References</div>
+      <div class="contact">
+        <span>West Linn, Oregon</span>
+        <span>Phone: (971) 517-4178</span>
+        <span>Email: <a href="mailto:Cardin.Phi.Nguyen@gmail.com">Cardin.Phi.Nguyen@gmail.com</a></span>
+        <span>GitHub: <a href="https://github.com/Ne-k">github.com/Ne-k</a></span>
+        <span>Website: <a href="https://neknguyen.xyz">neknguyen.xyz</a></span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Reference List</h2>
+      <p class="note">
+        The following individuals can speak to my technical ability, work ethic, communication skills, and reliability in professional and educational environments.
+      </p>
+
+      <div class="ref-grid">
+
+        <article class="ref-card">
+          <p class="ref-name">Jane Kopf Stover</p>
+          <p class="ref-role">Director of Operations & Partnerships, Coding With Kids</p>
+          <ul class="ref-lines">
+            <li><span class="label">Relationship:</span> Supervisor, Colleague</li>
+            <li><span class="label">Phone:</span> (425) 224-5131</li>
+            <li><span class="label">Email:</span> jane.kopf.stover@codingwithkids.com</li>
+          </ul>
+        </article>
+
+        <article class="ref-card">
+          <p class="ref-name">Barry Matties</p>
+          <!-- <p class="ref-role">Industry Mentor</p> -->
+          <ul class="ref-lines">
+            <li><span class="label">Relationship:</span> Mentor</li>
+            <li><span class="label">Phone:</span> (530) 748-1273</li>
+            <li><span class="label">Email:</span> Barry@brmx35.com</li>
+          </ul>
+        </article>
+
+        <article class="ref-card">
+          <p class="ref-name">Brandom Smith</p>
+          <p class="ref-role">Computer Science and Math Teacher, West Linn High School</p>
+          <ul class="ref-lines">
+            <li><span class="label">Relationship:</span> Former Computer Science Teacher</li>
+            <!-- <li><span class="label">Phone:</span> (000) 000-0000</li> -->
+            <li><span class="label">Email:</span> smithb@wlwv.k12.or.us</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>
