@@ -34,11 +34,6 @@ module.exports = {
         destination: "https://www.linkedin.com/in/cardin-nguyen-378107238",
         permanent: true,
       },
-      {
-        source: "/resume",
-        destination: "/CN_Resume.pdf",
-        permanent: true,
-      },
     ];
   },
   reactStrictMode: true,
