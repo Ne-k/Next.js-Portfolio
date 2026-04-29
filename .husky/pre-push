@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run render:pdfs
+
+git add public/CN_Resume.pdf public/CN_References.pdf
+
+if ! git diff --cached --quiet -- public/CN_Resume.pdf public/CN_References.pdf; then
+  echo "PDFs updated; please commit the regenerated PDFs before pushing."
+  exit 1
+fi

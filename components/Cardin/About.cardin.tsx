@@ -18,12 +18,22 @@ const About = () => {
         </p>
 
         <a
-          href="/resume"
+          href="/CN_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 flex cursor-pointer flex-row items-center gap-1 font-jost text-xl text-gray-400 duration-100 hover:ml-2"
         >
           View Resume
+          <HiOutlineArrowNarrowRight />
+        </a>
+
+        <a
+          href="/CN_References.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 flex cursor-pointer flex-row items-center gap-1 font-jost text-xl text-gray-400 duration-100 hover:ml-2"
+        >
+          View References
           <HiOutlineArrowNarrowRight />
         </a>
       </div>

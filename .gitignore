@@ -36,7 +36,11 @@ yarn-error.log*
 # Others
 
 .github
-.husky
 .next
 package-lock.json
 .env
+
+# husky hooks
+!.husky/
+/.husky/_/
+!.husky/pre-push
