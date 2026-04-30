@@ -27,7 +27,7 @@ const About = () => {
           <HiOutlineArrowNarrowRight />
         </a>
 
-        <a
+        {/* <a
           href="/CN_References.pdf"
           target="_blank"
           rel="noopener noreferrer"
@@ -35,7 +35,7 @@ const About = () => {
         >
           View References
           <HiOutlineArrowNarrowRight />
-        </a>
+        </a> */}
       </div>
 
       <div className="hidden custom:block">
