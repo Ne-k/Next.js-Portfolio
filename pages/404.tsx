@@ -1,43 +1,55 @@
 import type { NextPage } from "next";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
+
+import { Seo } from "../components/Misc/Seo.component";
 
 const ErrorPage: NextPage = () => {
-  const router = useRouter();
-
   return (
-    <main className="flex min-h-screen w-full items-center justify-center bg-zinc-950 px-6 py-12 text-white sm:px-10">
-      <section className="w-full max-w-4xl rounded-3xl border border-white/10 bg-zinc-900/80 p-6 shadow-2xl shadow-black/30 backdrop-blur sm:p-10">
-        <div className="mx-auto max-w-2xl">
+    <>
+      <Seo
+        title="Page not found | nguyen.ink"
+        description="The page you are looking for does not exist or has been moved."
+        url="https://nguyen.ink/404"
+        noIndex
+      />
+
+      <main className="relative isolate flex min-h-screen w-full items-center justify-center px-5 py-16 sm:px-8">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_55%_45%_at_50%_40%,#000_35%,transparent_100%)]" />
+        </div>
+
+        <section className="w-full max-w-2xl text-center">
           <Image
             src="/assests/404.svg"
             width={800}
             height={400}
-            alt="404 illustration"
-            className="h-auto w-full invert opacity-70"
+            alt=""
+            aria-hidden="true"
+            className="mx-auto h-auto w-full max-w-md opacity-40 invert"
             priority
           />
-        </div>
 
-        <div className="mt-8 flex w-full flex-col items-center justify-center text-center">
-          <h1 className="font-jost text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Page Not Found
+          <p className="mt-8 font-jost text-xs uppercase tracking-[0.4em] text-accent-300/80">
+            Error 404
+          </p>
+          <h1 className="mt-4 font-jost text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+            This page does not exist
           </h1>
-          <p className="mt-3 max-w-xl font-sen text-base text-zinc-300 sm:text-lg">
-            The page you are looking for does not exist or may have been moved.
+          <p className="mx-auto mt-4 max-w-md text-base leading-7 text-slate-400">
+            The link may be broken, or the page might have moved somewhere else.
           </p>
 
-          <button
-            type="button"
-            className="mt-6 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 font-jost text-sm uppercase tracking-[0.2em] text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/15"
-            onClick={() => router.push("/")}
+          <Link
+            href="/"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-jost text-sm font-semibold text-ink-950 transition-transform duration-150 hover:-translate-y-0.5"
           >
-            Back to Home
-          </button>
-        </div>
-      </section>
-    </main>
+            Back to home
+          </Link>
+        </section>
+      </main>
+    </>
   );
 };
 

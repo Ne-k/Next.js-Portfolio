@@ -1,25 +1,35 @@
+import { HiOutlineArrowNarrowRight } from "../Misc/Icons.collection";
+
 const DylanHero = () => {
   return (
-    <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-4xl items-center">
-      <section className="w-full overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 p-8 shadow-2xl shadow-black/30 sm:p-12">
-        <p className="font-jost text-sm uppercase tracking-[0.35em] text-white/55">Dylan Nguyen</p>
-        <h1 className="mt-6 max-w-2xl font-jost text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-          This page is coming soon...
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-          For now, this is a placeholder for Dylan Nguyen. Once the full site is ready, it will be
-          launched here. Stay tuned for updates.
-        </p>
+    <div className="relative isolate mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-5 py-16 sm:px-8">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,#000_35%,transparent_100%)]" />
+        <div className="absolute left-1/2 top-1/3 h-80 w-[34rem] -translate-x-1/2 rounded-full bg-glow-400/10 blur-[120px]" />
+      </div>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="https://nguyen.ink"
-            className="rounded-full border border-white/15 bg-white/8 px-5 py-3 font-jost text-sm uppercase tracking-[0.25em] text-white transition hover:border-white/30 hover:bg-white/12"
-          >
-            Back to Nguyen.ink
-          </a>
-        </div>
-      </section>
+      <p className="font-jost text-xs uppercase tracking-[0.4em] text-accent-300/80">
+        dylan.nguyen.ink
+      </p>
+
+      <h1 className="mt-6 font-jost text-4xl font-semibold tracking-tight sm:text-6xl">
+        <span className="text-gradient">Dylan Nguyen</span>
+      </h1>
+
+      <p className="mt-5 max-w-xl text-base leading-7 text-slate-400 sm:text-lg">
+        This page is reserved and still under construction. Once the full site is ready, it will
+        launch right here.
+      </p>
+
+      <div className="mt-10">
+        <a
+          href="https://nguyen.ink"
+          className="group inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-3 font-jost text-sm font-semibold text-white transition-colors hover:border-white/25 hover:bg-white/10"
+        >
+          Back to nguyen.ink
+          <HiOutlineArrowNarrowRight className="transition-transform duration-150 group-hover:translate-x-1" />
+        </a>
+      </div>
     </div>
   );
 };

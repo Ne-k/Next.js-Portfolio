@@ -6,138 +6,193 @@
   <title>Cardin Nguyen - Resume</title>
   <style>
     :root {
-      --bg: #faf7fb;
-      --paper: #ffffff;
-      --ink: #1a1a1a;
-      --muted: #555;
-      --accent: #c88fb0;
-      --accent-soft: #f9eef4;
-      --line: #e8d7e2;
+      --ink: #16181d;
+      --muted: #4a5058;
+      --accent: #1f3f6b;
+      --line: #c9ced6;
+      --line-soft: #e3e6ea;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      background: linear-gradient(180deg, #fff8fc 0%, #fffdfd 100%);
+      background: #f4f5f7;
       color: var(--ink);
-      font-family: "Aptos", "Segoe UI", sans-serif;
-      line-height: 1.55;
+      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
     .page {
-      max-width: 900px;
-      margin: 32px auto;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 32px 40px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      max-width: 8.27in;
+      margin: 28px auto;
+      background: #fff;
+      padding: 40px 46px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.10);
     }
 
+    /* ---------- Header ---------- */
     header {
       border-bottom: 2px solid var(--accent);
-      padding-bottom: 12px;
-      margin-bottom: 20px;
+      padding-bottom: 13px;
     }
 
     h1 {
       margin: 0;
-      font-family: "Cambria", serif;
-      font-size: 32px;
-      color: #111;
-      letter-spacing: 0.3px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      margin-top: 3px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.2px;
     }
 
     .contact {
-      margin-top: 6px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 20px;
-      font-size: 13px;
+      margin-top: 8px;
+      font-size: 12px;
       color: var(--muted);
     }
 
+    .contact span:not(:last-child)::after {
+      content: "  \00b7  ";
+      color: var(--line);
+    }
+
     .contact a {
-      color: var(--accent);
+      color: var(--muted);
       text-decoration: none;
     }
 
+    /* ---------- Sections ---------- */
     section { margin-top: 22px; }
 
     h2 {
-      font-family: "Cambria", serif;
-      font-size: 15px;
+      margin: 0 0 11px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0 0 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--line);
-      color: #222;
+      letter-spacing: 1.4px;
+      color: var(--accent);
+    }
+
+    .summary {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    /* ---------- Entries ---------- */
+    .entry { margin-bottom: 15px; }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
     }
 
     h3 {
       margin: 0;
-      font-size: 15px;
-      font-weight: 600;
-      color: #222;
+      font-size: 13.5px;
+      font-weight: 700;
     }
 
-    .meta {
-      font-size: 13px;
+    h3 .org {
+      font-weight: 500;
       color: var(--muted);
-      margin-top: 2px;
     }
 
-    .entry { margin-bottom: 14px; }
+    .dates {
+      flex: none;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .place {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
 
     ul {
-      margin: 6px 0 0 0;
-      padding: 0 0 0 16px;
-      list-style-position: inside;
+      margin: 4px 0 0;
+      padding-left: 16px;
     }
 
-    li { margin-bottom: 4px; }
+    li { margin-bottom: 3px; }
 
-    .skills-grid {
+    /* ---------- Skills ---------- */
+    .skills-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px 24px;
+      grid-template-columns: 132px 1fr;
+      gap: 7px 12px;
+      margin: 0;
+      font-size: 13px;
     }
 
-    .skills-label {
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #222;
+    .skills-row dt { font-weight: 700; }
+    .skills-row dd { margin: 0; }
+
+    /* ---------- Projects ---------- */
+    .project {
+      margin-bottom: 11px;
+      font-size: 13px;
     }
 
-    .experience-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px 28px;
+    .project:last-child { margin-bottom: 0; }
+
+    .project .stack {
+      font-size: 11.5px;
+      color: var(--muted);
     }
 
-    /* A4 PRINT OPTIMIZATION */
+    /* ---------- Education ---------- */
+    .edu { margin-bottom: 12px; }
+    .edu:last-child { margin-bottom: 0; }
+
+    /* ---------- Print ---------- */
     @media print {
-      @page { size: A4; margin: 0.45in; }
+      @page { size: A4; margin: 0.5in; }
 
-      body { background: #fff; font-size: 10.5pt; }
+      body { background: #fff; font-size: 10pt; line-height: 1.45; }
 
       .page {
+        max-width: none;
         margin: 0;
         padding: 0;
-        border: none;
         box-shadow: none;
       }
 
-      h1 { font-size: 22px; }
-      h2 { font-size: 11px; }
-      h3 { font-size: 10.5pt; }
-      .meta { font-size: 9pt; }
+      h1 { font-size: 21pt; }
+      .tagline { font-size: 10pt; }
       .contact { font-size: 8.5pt; }
-      ul { margin-left: 14px; }
+      h2 { font-size: 8.5pt; }
+      h3 { font-size: 10pt; }
+      .dates, .place, .project .stack { font-size: 8.5pt; }
+      .summary, .skills-row, .project, li { font-size: 9.5pt; }
+
+      section { margin-top: 15pt; }
+      header { padding-bottom: 10pt; }
+      h2 { margin-bottom: 9pt; }
+      .entry { margin-bottom: 11pt; }
+      .edu { margin-bottom: 9pt; }
+      .project { margin-bottom: 9pt; }
+      .skills-row { gap: 6pt 12pt; }
+      ul { margin-top: 3pt; }
+      li { margin-bottom: 2pt; }
+      .entry, .edu { break-inside: avoid; }
     }
   </style>
 </head>
@@ -146,113 +201,140 @@
   <main class="page">
     <header>
       <h1>Cardin Nguyen</h1>
+      <div class="tagline">Backend Developer &middot; Cybersecurity</div>
       <div class="contact">
         <span>West Linn, Oregon</span>
-        <span>Phone: (971) 517-4178</span>
-        <span>Email: <a href="mailto:cardin@nguyen.ink">cardin@nguyen.ink</a></span>
-        <span>GitHub: <a href="https://github.com/Ne-k">github.com/Ne-k</a></span>
-        <span>Website: <a href="https://cardin.nguyen.ink">cardin.nguyen.ink</a></span>
+        <span>(971) 517-4178</span>
+        <span><a href="mailto:cardin@nguyen.ink">cardin@nguyen.ink</a></span>
+        <span><a href="https://cardin.nguyen.ink">cardin.nguyen.ink</a></span>
+        <span><a href="https://github.com/Ne-k">github.com/Ne-k</a></span>
+        <span><a href="https://www.linkedin.com/in/cardin-nguyen-378107238">linkedin.com/in/cardin-nguyen</a></span>
       </div>
     </header>
 
     <section>
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <div>
-          <div class="skills-label">Technical Skills</div>
-          <ul>
-            <li>Cybersecurity: penetration testing, vulnerability assessment, network security, IAM</li>
-            <li>Programming: Python, Java, JavaScript, TypeScript, C++</li>
-            <li>Systems: Linux, SSH, Docker, server management</li>
-            <li>Tools: Git, Wireshark, Nmap, Burp Suite, VS Code, IntelliJ</li>
-          </ul>
-        </div>
+      <h2>Summary</h2>
+      <p class="summary">
+        Computer science student on a cybersecurity track with five years of hands-on software
+        experience across competition robotics, backend services, and self-managed Linux servers.
+        Works in Python, TypeScript, and Java, with practical exposure to penetration testing and
+        digital forensics. Looking for a security or backend engineering internship.
+      </p>
+    </section>
 
-        <div>
-          <div class="skills-label">Analytical & Problem-Solving</div>
-          <ul>
-            <li>Critical thinking</li>
-            <li>Iterative refinement</li>
-            <li>Forensic analysis</li>
-            <li>Troubleshooting</li>
-          </ul>
+    <section>
+      <h2>Technical Skills</h2>
+      <dl class="skills-row">
+        <dt>Languages</dt>
+        <dd>Python, TypeScript, JavaScript, Java, C++, SQL</dd>
 
-          <div class="skills-label" style="margin-top:10px;">Adaptability & Work Ethic</div>
-          <ul>
-            <li>Fast learner</li>
-            <li>Time management</li>
-            <li>Dedicated and reliable</li>
-            <li>Workflow optimization</li>
-          </ul>
-        </div>
-      </div>
+        <dt>Security</dt>
+        <dd>Penetration testing, vulnerability assessment, digital forensics, network security, IAM</dd>
+
+        <dt>Systems &amp; Tools</dt>
+        <dd>Linux, SSH, Docker, Git, Wireshark, Nmap, Burp Suite, VS Code, IntelliJ</dd>
+
+        <dt>Frameworks</dt>
+        <dd>Node.js, Next.js, React, Vite</dd>
+
+      </dl>
     </section>
 
     <section>
       <h2>Experience</h2>
 
-      <div class="experience-grid">
-
-        <div class="entry">
-          <h3>Coding With Kids — Instructor</h3>
-          <div class="meta">Portland, Oregon | August 2025 – Present</div>
-          <ul>
-            <li>Deliver technical instruction and adjust pacing for diverse proficiency levels.</li>
-            <li>Translate complex programming concepts into clear, age‑appropriate explanations.</li>
-          </ul>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Instructor <span class="org">&mdash; Coding With Kids</span></h3>
+          <span class="dates">Portland, OR &nbsp;&middot;&nbsp; Aug 2025 &ndash; Present</span>
         </div>
+        <ul>
+          <li>Teach programming fundamentals across a wide range of student skill levels, adjusting pacing each session.</li>
+          <li>Break complex concepts into explanations that hold a young audience and still stay technically accurate.</li>
+        </ul>
+      </div>
 
-        <div class="entry">
-          <h3>IConnect007 — Videographer</h3>
-          <div class="meta">Anaheim, California | January 2023 – April 2025</div>
-          <ul>
-            <li>Operate multi‑camera setups and support live switching for events.</li>
-            <li>Optimize post‑production workflows and coordinate with production teams.</li>
-          </ul>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Videographer <span class="org">&mdash; IConnect007</span></h3>
+          <span class="dates">Anaheim, CA &nbsp;&middot;&nbsp; Jan 2023 &ndash; Apr 2025</span>
         </div>
+        <ul>
+          <li>Operated multi-camera setups and supported live switching for industry trade show coverage.</li>
+          <li>Streamlined post-production workflows and coordinated deliverables with the production team on tight event deadlines.</li>
+        </ul>
+      </div>
 
-        <div class="entry">
-          <h3>FRC Robotics Team 7034 & FTC Team 10332 — Software Developer</h3>
-          <div class="meta">West Linn, Oregon | May 2021 – 2025</div>
-          <ul>
-            <li>Develop software for competitive robotics systems in collaborative team environments.</li>
-            <li>Lead technical coordination and support STEM outreach activities.</li>
-          </ul>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>Software Developer <span class="org">&mdash; FRC Team 7034 &amp; FTC Team 10332</span></h3>
+          <span class="dates">West Linn, OR &nbsp;&middot;&nbsp; May 2021 &ndash; 2025</span>
         </div>
+        <ul>
+          <li>Wrote and maintained Java control software for competition robots across four FRC and FTC seasons.</li>
+          <li>Built autonomous routines and driver-assist features, and supported team STEM outreach events.</li>
+        </ul>
+      </div>
 
-        <div class="entry">
-          <h3>FIRST Robotics Competition — AV Crew (Volunteer)</h3>
-          <div class="meta">Portland, Oregon | 2026 – Present</div>
-          <ul>
-            <li>Support live event audio and video operations for robotics competitions.</li>
-            <li>Assist with equipment setup, transitions, and troubleshooting during matches.</li>
-          </ul>
+      <div class="entry">
+        <div class="entry-head">
+          <h3>AV Crew, Volunteer <span class="org">&mdash; FIRST Robotics Competition</span></h3>
+          <span class="dates">Portland, OR &nbsp;&middot;&nbsp; 2026 &ndash; Present</span>
         </div>
+        <ul>
+          <li>Run live audio and video for competition events, covering setup, match transitions, and on-the-spot troubleshooting.</li>
+        </ul>
+      </div>
+    </section>
 
+    <section>
+      <h2>Selected Projects</h2>
+
+      <div class="project">
+        <b>Aurora Alerts</b> &mdash; Alerts when aurora activity is forecast within three days, using NOAA
+        space weather data. <span class="stack">Python</span>
+      </div>
+
+      <div class="project">
+        <b>2024 Crescendo</b> &mdash; FRC Team 7034's competition robot code, built with the student
+        software group. <span class="stack">Java, WPILib</span>
+      </div>
+
+      <div class="project">
+        <b>nguyen.ink</b> &mdash; Personal portfolio, statically generated with live GitHub and Spotify
+        data. <span class="stack">TypeScript, Next.js, Tailwind CSS</span>
+      </div>
+
+      <div class="project">
+        <b>ToD</b> &mdash; Discord bot that grew to roughly 6,000 servers over two years before being
+        retired. <span class="stack">JavaScript, Node.js</span>
       </div>
     </section>
 
     <section>
       <h2>Education</h2>
 
-      <div class="entry">
-        <h3>Oregon State University — Corvallis, Oregon</h3>
-        <div class="meta">B.S. in Computer Science (Cybersecurity) | Expected Graduation: 2029</div>
+      <div class="edu">
+        <div class="entry-head">
+          <h3>Oregon State University <span class="org">&mdash; B.S. Computer Science, Cybersecurity</span></h3>
+          <span class="dates">Corvallis, OR &nbsp;&middot;&nbsp; Expected 2029</span>
+        </div>
       </div>
 
-      <div class="entry">
-        <h3>Portland Community College — Portland, Oregon</h3>
-        <div class="meta">Foundational coursework in Computer Science & CIS | September 2025 – June 2026</div>
+      <div class="edu">
+        <div class="entry-head">
+          <h3>Portland Community College <span class="org">&mdash; Computer Science &amp; CIS coursework</span></h3>
+          <span class="dates">Portland, OR &nbsp;&middot;&nbsp; Sep 2025 &ndash; Jun 2026</span>
+        </div>
       </div>
 
-      <div class="entry">
-        <h3>West Linn High School — West Linn, Oregon</h3>
-        <div class="meta">Graduated with Honors | August 2021 – June 2025</div>
-        <ul>
-          <li>Computer Science Honors Society member (one of few chapters in Oregon)</li>
-        </ul>
+      <div class="edu">
+        <div class="entry-head">
+          <h3>West Linn High School <span class="org">&mdash; Graduated with Honors</span></h3>
+          <span class="dates">West Linn, OR &nbsp;&middot;&nbsp; Aug 2021 &ndash; Jun 2025</span>
+        </div>
+        <div class="place">Computer Science Honor Society member</div>
       </div>
-
     </section>
   </main>
 </body>

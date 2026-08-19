@@ -1,54 +1,77 @@
-import { FaJava, FaNodeJs, SiTypescript, FiCamera, FaShieldAlt } from "../Misc/Icons.collection";
-import { SiPython } from "react-icons/si";
+import type { IconType } from "react-icons";
+
+import {
+  FaJava,
+  FaNodeJs,
+  FaShieldAlt,
+  FiCamera,
+  SiPython,
+  SiTypescript,
+} from "../Misc/Icons.collection";
+import { Reveal } from "../Misc/Reveal.component";
+import { Section } from "../Misc/Section.component";
+import { skills } from "./skills.data";
+import type { Skill } from "./skills.data";
+
+const iconMap: Record<Skill["icon"], IconType> = {
+  shield: FaShieldAlt,
+  python: SiPython,
+  typescript: SiTypescript,
+  node: FaNodeJs,
+  java: FaJava,
+  camera: FiCamera,
+};
+
+const alsoKnows = ["Next.js", "React", "C++", "Docker", "Git", "SQL", "SSH", "IAM"];
 
 const Skills = () => {
   return (
-    <div className="my-16 px-3 font-sen text-white" id="skills">
-      <p className="text-3xl font-bold text-white">Skills</p>
+    <Section
+      id="skills"
+      index="02"
+      title="What I work with"
+      description="The tools I actually reach for, and what I use each one to do."
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {skills.map((skill, index) => {
+          const Icon = iconMap[skill.icon];
 
-      <div className="text-md my-8 flex flex-col font-medium md:text-xl custom:text-lg">
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <FiCamera size="30" />
-          <span className="text-white">Photography and Videography</span>
-          &nbsp;I shoot on a Sony A7RIV for stills and an A7IV for video, with experience ranging from creative shoots to occasional sports coverage.
-        </p>
+          return (
+            <Reveal
+              key={skill.name}
+              delay={index * 70}
+              className="group h-full rounded-xl border border-white/8 bg-white/[0.02] p-5 transition-colors duration-200 hover:border-accent-400/40 hover:bg-white/[0.04]"
+            >
+              <div className="flex items-center gap-3">
+                <Icon aria-hidden="true" className="text-xl text-accent-400" />
+                <h3 className="font-jost text-lg font-semibold text-white">{skill.name}</h3>
+              </div>
+              <p className="mt-3 text-sm leading-6 text-slate-400">{skill.blurb}</p>
 
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <FaNodeJs size="30" />
-          <span className="text-white">JavaScript </span>
-          &nbsp;Used for backend services, small tools, and web applications.
-        </p>
-
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <SiTypescript size="30" />
-          <span className="text-white">TypeScript </span>
-          &nbsp;Primarily used for Next.js and Vite-based web applications.
-        </p>
-
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <SiPython size="30" />
-          <span className="text-white">Python </span>
-          &nbsp;Automation scripts, security tooling, and smaller projects.
-        </p>
-
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <FaJava size="30" />
-          <span className="text-white">Java </span>
-          &nbsp;Primary language used in the First Robotics Competition (FRC).
-        </p>
-
-        <p className="flex flex-row items-center border-b-[0.1px] border-gray-500 py-1 text-slate-300">
-          <FaShieldAlt size="30" />
-          <span className="text-white">Cybersecurity </span>
-          &nbsp;Hands-on experience in penetration testing and digital forensics.
-        </p>
+              <ul className="mt-4 flex flex-wrap gap-1.5">
+                {skill.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="rounded-md border border-white/8 bg-white/5 px-2 py-0.5 font-jost text-[0.7rem] uppercase tracking-wide text-slate-400"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          );
+        })}
       </div>
 
-      <p className="text-lg font-medium text-slate-300">
-        ...additional skills include <span className="text-white">Next.js</span>,{" "}
-        <span className="text-white">React</span>, and <span className="text-white">C++</span>
-      </p>
-    </div>
+      <Reveal className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-slate-400">
+        <span className="font-jost">Also comfortable with</span>
+        {alsoKnows.map((item) => (
+          <span key={item} className="rounded-md bg-white/5 px-2 py-1 font-jost text-slate-300">
+            {item}
+          </span>
+        ))}
+      </Reveal>
+    </Section>
   );
 };
 

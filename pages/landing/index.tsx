@@ -1,26 +1,18 @@
-import Head from "next/head";
 import type { NextPage } from "next";
+
 import { LandingHero } from "../../components/Landing";
+import { Seo } from "../../components/Misc/Seo.component";
 
 const LandingPage: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Nguyen.ink</title>
-        <meta
-          name="description"
-          content="Nguyen.ink is a placeholder page while the main landing experience is being prepared."
-        />
-        <link rel="canonical" href="https://nguyen.ink" />
-        <meta property="og:title" content="Nguyen.ink" />
-        <meta
-          property="og:description"
-          content="Nguyen.ink is a placeholder page while the main landing experience is being prepared."
-        />
-        <meta property="og:url" content="https://nguyen.ink" />
-      </Head>
+      <Seo
+        title="nguyen.ink"
+        description="The front door for nguyen.ink. Pick a subdomain: cardin.nguyen.ink for Cardin Nguyen's portfolio, or dylan.nguyen.ink."
+        url="https://nguyen.ink"
+      />
 
-      <main className="min-h-screen overflow-hidden bg-zinc-950 text-white">
+      <main className="min-h-screen overflow-hidden">
         <LandingHero />
       </main>
     </>

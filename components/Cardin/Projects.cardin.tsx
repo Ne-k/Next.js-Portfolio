@@ -1,129 +1,163 @@
-import { useEffect, useState } from "react";
+import { GoRepoForked, GoStar, HiArrowUpRight, SiGithub } from "../Misc/Icons.collection";
+import { Reveal } from "../Misc/Reveal.component";
+import { Section } from "../Misc/Section.component";
+import type { Project } from "../../lib/github";
+import { site } from "../../lib/site";
 
-type Repository = {
-  id: number;
-  name: string;
-  description: string | null;
-  fork: boolean;
-  archived: boolean;
-  html_url: string;
-  pushed_at: string;
+/** GitHub's own language colours, so the dots read the way people expect. */
+const languageColors: Record<string, string> = {
+  TypeScript: "#3178c6",
+  JavaScript: "#f1e05a",
+  Python: "#3572A5",
+  Java: "#b07219",
+  "C++": "#f34b7d",
+  C: "#555555",
+  "C#": "#178600",
+  Go: "#00ADD8",
+  Rust: "#dea584",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+  Shell: "#89e051",
+  Kotlin: "#A97BFF",
+  Vue: "#41b883",
+  Dockerfile: "#384d54",
 };
 
-const pastelGradients = [
-  ["#FFD1DC", "#FF9E9D"],
-  ["#B5EAD7", "#C7CEEA"],
-  ["#FFDAC1", "#E2F0CB"],
-  ["#FFB7B2", "#FF9AA2"],
-  ["#B5EAD7", "#AFCBFA"],
-  ["#FAD2E1", "#99DDCC"],
-  ["#FFC8DD", "#D6AEDD"],
-  ["#F3EAC2", "#F5D6BA"],
-  ["#ECD4FF", "#FFC4E1"],
-  ["#A8E6CF", "#FDFFAB"],
-] as const;
+// Fixed to UTC so the build-time render and the client render always agree.
+const monthFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
-const Projects = () => {
-  const [repos, setRepos] = useState<Repository[]>([]);
-  const [loading, setLoading] = useState(true);
+const formatUpdated = (iso: string) => {
+  const parsed = Date.parse(iso);
 
-  useEffect(() => {
-    const fetchRepos = async () => {
-      try {
-        const response = await fetch("https://api.github.com/users/Ne-k/repos");
+  return Number.isNaN(parsed) ? null : monthFormatter.format(parsed);
+};
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+type ProjectsProps = {
+  projects: Project[];
+};
 
-        const data: Repository[] = await response.json();
-        const filteredRepos = data
-          .sort(
-            (left, right) =>
-              new Date(right.pushed_at).getTime() - new Date(left.pushed_at).getTime(),
-          )
-          .slice(0, 8);
-
-        setRepos(filteredRepos);
-      } catch (error) {
-        console.error("Fetching error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    void fetchRepos();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="my-16 px-3 font-sen text-center text-lg text-slate-300" id="projects">
-        Loading projects...
-      </div>
-    );
-  }
-
+const Projects = ({ projects }: ProjectsProps) => {
   return (
-    <div className="my-16 px-3 font-sen" id="projects">
-      <p className="text-center text-2xl font-bold text-white sm:text-3xl">
-        <a
-          href="https://github.com/Ne-k"
-          target="_blank"
-          rel="noreferrer"
-          className="cursor-pointer hover:font-bold"
-        >
-          <u>Recently Updated Projects</u>
-        </a>
-      </p>
-
-      <div className="my-8 flex flex-wrap items-center justify-center gap-10 px-4 sm:px-8">
-        {repos.length === 0 ? (
-          <div
-            className="flex h-auto min-h-[7rem] max-w-[20rem] rounded-lg p-1 text-white"
-            style={{ background: "linear-gradient(to right, #FFD1DC, #FF9E9D)" }}
-          >
-            <div className="flex w-full flex-col items-center justify-center rounded-lg bg-primary px-2 py-2 text-center font-medium">
-              <p className="project-name break-all text-lg font-semibold">No Projects Found...</p>
-              <p className="project-description text-sm break-words">No description available.</p>
-            </div>
-          </div>
-        ) : (
-          repos.map((repo, index) => {
-            const [colorStart, colorEnd] = pastelGradients[index % pastelGradients.length];
-
-            return (
+    <Section
+      id="projects"
+      index="03"
+      title="Things I have built"
+      description="Pulled from my GitHub and sorted by whatever I touched most recently, so this list stays honest."
+    >
+      {projects.length === 0 ? (
+        <Reveal className="rounded-xl border border-white/8 bg-white/[0.02] p-10 text-center">
+          <p className="font-jost text-lg text-white">Projects are taking a moment.</p>
+          <p className="mt-2 text-sm text-slate-400">
+            The GitHub listing could not be loaded right now.{" "}
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-300 underline underline-offset-4 hover:text-accent-200"
+            >
+              Browse the repositories directly
+            </a>
+            .
+          </p>
+        </Reveal>
+      ) : (
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, index) => (
+            <Reveal as="li" key={project.id} delay={index * 60} className="h-full">
               <a
-                key={repo.id}
-                href={repo.html_url}
+                href={project.url}
                 target="_blank"
-                rel="noreferrer"
-                className="flex h-auto min-h-[7rem] max-w-[20rem] cursor-pointer rounded-lg p-1 text-white duration-100 hover:scale-105"
-                style={{
-                  background: `linear-gradient(to right, ${colorStart}, ${colorEnd})`,
-                }}
+                rel="noopener noreferrer"
+                className="group flex h-full flex-col rounded-xl border border-white/8 bg-white/[0.02] p-5 transition-colors duration-200 hover:border-accent-400/40 hover:bg-white/[0.04]"
               >
-                <div className="relative flex w-full flex-col items-center justify-center gap-1 rounded-lg bg-primary px-2 pb-2 pt-7 text-center font-medium">
-                  {repo.archived && (
-                    <span className="absolute right-2 top-2 rounded-full border border-yellow-300/60 bg-yellow-400/20 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-yellow-200">
-                      Archived
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="min-w-0 break-words font-jost text-lg font-semibold text-white group-hover:text-accent-300">
+                    {project.name}
+                  </h3>
+                  <HiArrowUpRight
+                    aria-hidden="true"
+                    className="mt-1 shrink-0 text-sm text-slate-500 transition-all duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-300"
+                  />
+                </div>
+
+                {project.archived ? (
+                  <span className="mt-2 inline-flex w-fit rounded-full border border-amber-300/30 bg-amber-400/10 px-2 py-0.5 font-jost text-[0.65rem] font-semibold uppercase tracking-wide text-amber-200">
+                    Archived
+                  </span>
+                ) : null}
+
+                <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">{project.description}</p>
+
+                {/* Spacer keeps the meta row pinned to the bottom of every card. */}
+                <div className="flex-1" />
+
+                {project.topics.length > 0 ? (
+                  <ul className="mt-4 flex flex-wrap gap-1.5">
+                    {project.topics.map((topic) => (
+                      <li
+                        key={topic}
+                        className="rounded-md bg-white/5 px-2 py-0.5 font-jost text-[0.7rem] text-slate-400"
+                      >
+                        {topic}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/5 pt-4 font-jost text-xs text-slate-400">
+                  {project.language ? (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        aria-hidden="true"
+                        className="h-2.5 w-2.5 rounded-full"
+                        style={{ backgroundColor: languageColors[project.language] ?? "#8b8b95" }}
+                      />
+                      {project.language}
                     </span>
-                  )}
-                  <p
-                    className="project-name overflow-hidden px-4 text-lg font-semibold text-ellipsis whitespace-nowrap"
-                    style={{ minWidth: "10rem" }}
-                  >
-                    {repo.name}
-                  </p>
-                  <p className="project-description text-sm break-words">
-                    {repo.description || "No description available."}
-                  </p>
+                  ) : null}
+
+                  {project.stars > 0 ? (
+                    <span className="flex items-center gap-1">
+                      <GoStar aria-hidden="true" />
+                      {project.stars}
+                      <span className="sr-only">stars</span>
+                    </span>
+                  ) : null}
+
+                  {project.forks > 0 ? (
+                    <span className="flex items-center gap-1">
+                      <GoRepoForked aria-hidden="true" />
+                      {project.forks}
+                      <span className="sr-only">forks</span>
+                    </span>
+                  ) : null}
+
+                  {formatUpdated(project.pushedAt) ? (
+                    <span className="ml-auto">Updated {formatUpdated(project.pushedAt)}</span>
+                  ) : null}
                 </div>
               </a>
-            );
-          })
-        )}
-      </div>
-    </div>
+            </Reveal>
+          ))}
+        </ul>
+      )}
+
+      <Reveal className="mt-10 flex justify-center">
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-3 font-jost text-sm font-medium text-white transition-colors hover:border-white/25 hover:bg-white/10"
+        >
+          <SiGithub className="text-base" />
+          See everything on GitHub
+        </a>
+      </Reveal>
+    </Section>
   );
 };
 

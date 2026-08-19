@@ -1,52 +1,97 @@
-import Head from "next/head";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 
 import {
-  Header,
   About,
+  Contact,
+  Footer,
+  Header,
+  Hero,
+  Offline,
   Projects,
   Skills,
-  Contact,
-  NowPlaying,
 } from "../../components/Cardin";
+import { Seo } from "../../components/Misc/Seo.component";
+import { getProjects } from "../../lib/github";
+import type { Project } from "../../lib/github";
+import { site } from "../../lib/site";
 
-const CardinPage: NextPage = () => {
+type CardinPageProps = {
+  projects: Project[];
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  alternateName: site.alias,
+  url: site.url,
+  email: `mailto:${site.email}`,
+  jobTitle: site.role,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "West Linn",
+    addressRegion: "OR",
+    addressCountry: "US",
+  },
+  sameAs: [site.github, site.linkedin, site.instagram],
+  knowsAbout: [
+    "Backend development",
+    "Cybersecurity",
+    "Penetration testing",
+    "Digital forensics",
+    "TypeScript",
+    "Python",
+  ],
+};
+
+const CardinPage: NextPage<CardinPageProps> = ({ projects }) => {
   return (
     <>
-      <Head>
-        <title>Cardin Nguyen | Backend Developer</title>
-        <meta
-          name="description"
-          content="Cardin Nguyen's portfolio covering backend development, projects, photography, and current work."
-        />
-        <link rel="canonical" href="https://cardin.nguyen.ink" />
-        <meta property="og:title" content="Cardin Nguyen | Backend Developer" />
-        <meta
-          property="og:description"
-          content="Portfolio site for Cardin Nguyen, backend developer, student, photographer, and cybersecurity enthusiast."
-        />
-        <meta property="og:url" content="https://cardin.nguyen.ink" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://media.discordapp.net/attachments/953754034630717454/999515622801158304/image0_13.jpg"
-        />
-        <meta
-          name="keywords"
-          content="Cardin Nguyen, backend developer, portfolio, Nek, web developer, cybersecurity, photography"
-        />
-      </Head>
+      <Seo
+        title="Cardin Nguyen | Backend Developer & Cybersecurity Student"
+        description="Cardin Nguyen (Nek) is a backend developer and cybersecurity student in the Portland, Oregon area, focused on penetration testing, digital forensics, and server-side systems."
+        url={site.url}
+        keywords="Cardin Nguyen, Nek, backend developer, cybersecurity, penetration testing, digital forensics, TypeScript, Python, Portland Oregon, portfolio"
+        jsonLd={jsonLd}
+      />
 
-      <main className="px-2 sm:px-8 md:px-24 lg:px-48 xl:px-72">
-        <Header />
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-jost focus:text-sm focus:font-semibold focus:text-ink-950"
+      >
+        Skip to content
+      </a>
+
+      <Header />
+
+      <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        <Hero />
         <About />
         <Skills />
-        <Projects />
+        <Projects projects={projects} />
+        <Offline />
         <Contact />
-        <NowPlaying />
+        <Footer />
       </main>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<CardinPageProps> = async () => {
+  let projects: Project[] = [];
+
+  try {
+    projects = await getProjects(9);
+  } catch (error) {
+    // A GitHub outage or rate limit should degrade the section, not fail the build.
+    console.error("Failed to load GitHub projects:", error);
+  }
+
+  return {
+    props: { projects },
+    // Rebuild the page in the background at most once an hour.
+    revalidate: 3600,
+  };
 };
 
 export default CardinPage;

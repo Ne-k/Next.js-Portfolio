@@ -1,16 +1,38 @@
-const path = require("path");
+/** @type {import('next').NextConfig} */
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+  { key: "X-DNS-Prefetch-Control", value: "on" },
+];
 
 module.exports = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+
+  async headers() {
+    return [
+      {
+        // Everything except Next's own build output, which the dev server
+        // occasionally labels with a content type that `nosniff` rejects.
+        source: "/((?!_next/).*)",
+        headers: securityHeaders,
+      },
+      {
+        // Fingerprinted-by-hand assets: safe to cache hard.
+        source: "/assests/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
+    ];
+  },
+
   async redirects() {
     return [
       {
         source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "www.nguyen.ink",
-          },
-        ],
+        has: [{ type: "host", value: "www.nguyen.ink" }],
         destination: "https://nguyen.ink/:path*",
         permanent: true,
       },
@@ -39,23 +61,19 @@ module.exports = {
         destination: "/CN_Resume.pdf",
         permanent: true,
       },
+      {
+        source: "/references",
+        destination: "/CN_References.pdf",
+        permanent: false,
+      },
     ];
   },
-  reactStrictMode: true,
 
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
-  },
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.discordapp.com",
-      },
-      {
-        protocol: "https",
-        hostname: "i.scdn.co",
-      },
+      { protocol: "https", hostname: "cdn.discordapp.com" },
+      { protocol: "https", hostname: "i.scdn.co" },
     ],
   },
 };

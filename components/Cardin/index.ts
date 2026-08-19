@@ -1,6 +1,9 @@
 export { default as Header } from "./Header.cardin";
+export { default as Hero } from "./Hero.cardin";
 export { default as About } from "./About.cardin";
 export { default as Skills } from "./Skills.cardin";
 export { default as Projects } from "./Projects.cardin";
+export { default as Offline } from "./Offline.cardin";
 export { default as Contact } from "./Contact.cardin";
 export { default as NowPlaying } from "./NowPlaying.cardin";
+export { default as Footer } from "./Footer.cardin";

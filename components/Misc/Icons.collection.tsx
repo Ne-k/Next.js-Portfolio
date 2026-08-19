@@ -1,28 +1,29 @@
-import { BsSpotify, BsArrowRightShort } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
-import { AiOutlineTwitter, AiOutlineGithub } from "react-icons/ai";
+import { BsSpotify } from "react-icons/bs";
+import { FaDiscord, FaInstagram, FaJava, FaLinkedinIn, FaNodeJs, FaShieldAlt } from "react-icons/fa";
+import { FiCamera } from "react-icons/fi";
+import { GoRepoForked, GoStar } from "react-icons/go";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import {SiTypescript} from "react-icons/si";
-import {FiCamera} from "react-icons/fi";
-import { FaDiscord, FaInstagram, FaJava, FaPython, FaNodeJs, FaReact, } from "react-icons/fa";
-import { VscGithubAlt } from "react-icons/vsc";
-import { FaShieldAlt } from "react-icons/fa";
+import { HiArrowUpRight, HiBars3, HiXMark } from "react-icons/hi2";
+import { MdEmail } from "react-icons/md";
+import { SiGithub, SiPython, SiTypescript } from "react-icons/si";
 
 export {
   BsSpotify,
-  MdEmail,
-  AiOutlineTwitter,
-  AiOutlineGithub,
-  HiOutlineArrowNarrowRight,
-  BsArrowRightShort,
   FaDiscord,
   FaInstagram,
-  VscGithubAlt,
   FaJava,
-  FaPython,
+  FaLinkedinIn,
   FaNodeJs,
-  FaReact,
-  SiTypescript,
-  FiCamera,
   FaShieldAlt,
+  FiCamera,
+  GoRepoForked,
+  GoStar,
+  HiArrowUpRight,
+  HiBars3,
+  HiOutlineArrowNarrowRight,
+  HiXMark,
+  MdEmail,
+  SiGithub,
+  SiPython,
+  SiTypescript,
 };

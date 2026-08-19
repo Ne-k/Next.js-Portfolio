@@ -44,3 +44,5 @@ package-lock.json
 !.husky/
 /.husky/_/
 !.husky/pre-push
+# typescript incremental build cache
+tsconfig.tsbuildinfo
