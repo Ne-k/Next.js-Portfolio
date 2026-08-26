@@ -57,14 +57,14 @@ const CardinPage: NextPage<CardinPageProps> = ({ projects }) => {
 
       <a
         href="#about"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-jost focus:text-sm focus:font-semibold focus:text-ink-950"
+        className="label sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2.5 focus:text-paper"
       >
         Skip to content
       </a>
 
       <Header />
 
-      <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <main className="mx-auto w-full max-w-[72rem] px-5 sm:px-8">
         <Hero />
         <About />
         <Skills />

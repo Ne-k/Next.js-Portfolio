@@ -25,13 +25,16 @@ const Header = () => {
       .map((id) => document.getElementById(id))
       .filter((node): node is HTMLElement => node !== null);
 
-    if (sections.length === 0 || typeof IntersectionObserver === "undefined") return;
+    if (sections.length === 0 || typeof IntersectionObserver === "undefined")
+      return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+          .sort(
+            (left, right) => right.intersectionRatio - left.intersectionRatio,
+          )[0];
 
         if (visible) setActive(visible.target.id);
       },
@@ -64,27 +67,24 @@ const Header = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "border-b border-white/8 bg-ink-950/80 backdrop-blur-xl" : "border-b border-transparent"
+      className={`sticky top-0 z-50 border-b bg-paper transition-colors duration-200 ${
+        scrolled ? "border-ink" : "border-rule"
       }`}
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8"
+        className="mx-auto flex h-16 max-w-[72rem] items-center justify-between gap-6 px-5 sm:px-8"
       >
-        <a
-          href="#top"
-          className="group flex items-center gap-2.5 font-jost text-sm font-semibold tracking-tight text-white"
-        >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-glow-400 text-[0.7rem] font-bold text-ink-950">
+        <a href="#top" className="flex items-center gap-3">
+          <span className="label grid h-7 w-7 place-items-center border border-ink text-ink">
             CN
           </span>
-          <span className="hidden sm:inline">
-            cardin<span className="text-slate-400">.nguyen.ink</span>
+          <span className="label hidden text-ink sm:inline">
+            Cardin Nguyen<span className="text-ink-faint"> / nguyen.ink</span>
           </span>
         </a>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => {
             const id = link.url.replace("#", "");
 
@@ -93,10 +93,10 @@ const Header = () => {
                 key={link.url}
                 href={link.url}
                 aria-current={active === id ? "true" : undefined}
-                className={`rounded-full px-3.5 py-1.5 font-jost text-sm transition-colors ${
+                className={`label border-b py-0.5 transition-colors ${
                   active === id
-                    ? "bg-white/10 text-white"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                    ? "border-signal text-ink"
+                    : "border-transparent text-ink-faint hover:border-rule hover:text-ink"
                 }`}
               >
                 {link.text}
@@ -108,7 +108,7 @@ const Header = () => {
             href={site.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 rounded-full border border-accent-400/30 bg-accent-400/10 px-4 py-1.5 font-jost text-sm font-medium text-accent-300 transition-colors hover:border-accent-400/60 hover:bg-accent-400/20 hover:text-white"
+            className="label border border-ink px-3 py-1.5 text-ink transition-colors hover:bg-ink hover:text-paper"
           >
             Resume
           </a>
@@ -120,7 +120,7 @@ const Header = () => {
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/5 text-xl text-white transition-colors hover:bg-white/10 md:hidden"
+          className="grid h-9 w-9 place-items-center border border-rule text-lg text-ink transition-colors hover:border-ink md:hidden"
         >
           {open ? <HiXMark /> : <HiBars3 />}
         </button>
@@ -129,17 +129,20 @@ const Header = () => {
       {open ? (
         <div
           id="mobile-nav"
-          className="border-t border-white/8 bg-ink-950/95 px-5 pb-6 pt-2 backdrop-blur-xl md:hidden"
+          className="border-t border-rule bg-paper px-5 pb-6 md:hidden"
         >
-          <ul className="flex flex-col">
+          <ul>
             {navLinks.map((link) => (
               <li key={link.url}>
                 <a
                   href={link.url}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-white/5 py-3.5 font-jost text-lg text-slate-200 transition-colors hover:text-accent-300"
+                  className="label flex items-center justify-between border-b border-rule-soft py-4 text-ink"
                 >
                   {link.text}
+                  <span aria-hidden="true" className="text-ink-faint">
+                    {link.url}
+                  </span>
                 </a>
               </li>
             ))}
@@ -150,9 +153,9 @@ const Header = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
-            className="mt-5 block rounded-xl border border-accent-400/30 bg-accent-400/10 py-3 text-center font-jost text-base font-medium text-accent-300"
+            className="label mt-6 block border border-ink py-3 text-center text-ink"
           >
-            View Resume
+            Resume (PDF)
           </a>
         </div>
       ) : null}

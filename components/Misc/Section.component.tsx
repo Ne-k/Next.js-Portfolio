@@ -1,42 +1,52 @@
 import type { ReactNode } from "react";
 
-import { Reveal } from "./Reveal.component";
-
 type SectionProps = {
   id: string;
   title: string;
-  /** Small label rendered above the heading, e.g. "02". */
-  index?: string;
+  /** Two-digit field number rendered in the gutter, e.g. "02". */
+  index: string;
+  /** Optional second gutter line: a count, a source, a caveat. */
+  meta?: string;
   description?: string;
   children: ReactNode;
-  className?: string;
 };
 
-const Section = ({ id, title, index, description, children, className = "" }: SectionProps) => {
+/** A numbered field of the datasheet: mono metadata in the gutter, content beside it. */
+const Section = ({
+  id,
+  title,
+  index,
+  meta,
+  description,
+  children,
+}: SectionProps) => {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`border-t border-white/8 py-14 sm:py-20 ${className}`.trim()}
+      className="grid gap-x-10 gap-y-6 border-t border-ink pt-6 pb-20 md:grid-cols-[7rem_minmax(0,1fr)] sm:pb-28"
     >
-      <Reveal className="max-w-2xl">
-        <div className="flex items-baseline gap-3">
-          {index ? (
-            <span aria-hidden="true" className="font-jost text-sm font-medium text-accent-400">
-              {index}
-            </span>
-          ) : null}
-          <h2 id={`${id}-heading`} className="font-jost text-2xl font-semibold text-white sm:text-3xl">
-            {title}
-          </h2>
-        </div>
+      <div className="flex items-baseline gap-3 md:sticky md:top-24 md:block md:self-start">
+        <p className="label text-signal">{index}</p>
+        {meta ? <p className="label text-ink-faint md:mt-2">{meta}</p> : null}
+      </div>
+
+      <div>
+        <h2
+          id={`${id}-heading`}
+          className="max-w-measure text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-balance text-ink sm:text-[2.125rem]"
+        >
+          {title}
+        </h2>
 
         {description ? (
-          <p className="mt-3 text-base leading-7 text-slate-400">{description}</p>
+          <p className="mt-4 max-w-measure text-[0.9375rem] leading-[1.7]">
+            {description}
+          </p>
         ) : null}
-      </Reveal>
 
-      <div className="mt-8 sm:mt-12">{children}</div>
+        <div className="mt-10">{children}</div>
+      </div>
     </section>
   );
 };

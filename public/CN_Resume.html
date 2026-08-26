@@ -4,196 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cardin Nguyen - Resume</title>
+  <link rel="stylesheet" href="doc.css">
   <style>
-    :root {
-      --ink: #16181d;
-      --muted: #4a5058;
-      --accent: #1f3f6b;
-      --line: #c9ced6;
-      --line-soft: #e3e6ea;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background: #f4f5f7;
-      color: var(--ink);
-      font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-
-    .page {
-      max-width: 8.27in;
-      margin: 28px auto;
-      background: #fff;
-      padding: 40px 46px;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.10);
-    }
-
-    /* ---------- Header ---------- */
-    header {
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 13px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      line-height: 1.1;
-    }
-
-    .tagline {
-      margin-top: 3px;
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.2px;
-    }
-
-    .contact {
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .contact span:not(:last-child)::after {
-      content: "  \00b7  ";
-      color: var(--line);
-    }
-
-    .contact a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    /* ---------- Sections ---------- */
-    section { margin-top: 22px; }
-
-    h2 {
-      margin: 0 0 11px;
-      padding-bottom: 3px;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      color: var(--accent);
-    }
-
-    .summary {
-      margin: 0;
-      font-size: 13px;
-    }
-
-    /* ---------- Entries ---------- */
-    .entry { margin-bottom: 15px; }
-    .entry:last-child { margin-bottom: 0; }
-
-    .entry-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 14px;
-    }
-
-    h3 {
-      margin: 0;
-      font-size: 13.5px;
-      font-weight: 700;
-    }
-
-    h3 .org {
-      font-weight: 500;
-      color: var(--muted);
-    }
-
-    .dates {
-      flex: none;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .place {
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-
-    ul {
-      margin: 4px 0 0;
-      padding-left: 16px;
-    }
-
-    li { margin-bottom: 3px; }
-
-    /* ---------- Skills ---------- */
-    .skills-row {
-      display: grid;
-      grid-template-columns: 132px 1fr;
-      gap: 7px 12px;
-      margin: 0;
-      font-size: 13px;
-    }
-
-    .skills-row dt { font-weight: 700; }
-    .skills-row dd { margin: 0; }
-
-    /* ---------- Projects ---------- */
-    .project {
-      margin-bottom: 11px;
-      font-size: 13px;
-    }
-
-    .project:last-child { margin-bottom: 0; }
-
-    .project .stack {
-      font-size: 11.5px;
-      color: var(--muted);
-    }
-
-    /* ---------- Education ---------- */
-    .edu { margin-bottom: 12px; }
-    .edu:last-child { margin-bottom: 0; }
-
-    /* ---------- Print ---------- */
-    @media print {
-      @page { size: A4; margin: 0.5in; }
-
-      body { background: #fff; font-size: 10pt; line-height: 1.45; }
-
-      .page {
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-      }
-
-      h1 { font-size: 21pt; }
-      .tagline { font-size: 10pt; }
-      .contact { font-size: 8.5pt; }
-      h2 { font-size: 8.5pt; }
-      h3 { font-size: 10pt; }
-      .dates, .place, .project .stack { font-size: 8.5pt; }
-      .summary, .skills-row, .project, li { font-size: 9.5pt; }
-
-      section { margin-top: 15pt; }
-      header { padding-bottom: 10pt; }
-      h2 { margin-bottom: 9pt; }
-      .entry { margin-bottom: 11pt; }
-      .edu { margin-bottom: 9pt; }
-      .project { margin-bottom: 9pt; }
-      .skills-row { gap: 6pt 12pt; }
-      ul { margin-top: 3pt; }
-      li { margin-bottom: 2pt; }
-      .entry, .edu { break-inside: avoid; }
-    }
+    /* Page size is the only thing that differs between the two documents. */
+    @page { size: A4; margin: 0.5in; }
   </style>
 </head>
 
@@ -291,23 +105,27 @@
       <h2>Selected Projects</h2>
 
       <div class="project">
-        <b>Aurora Alerts</b> &mdash; Alerts when aurora activity is forecast within three days, using NOAA
-        space weather data. <span class="stack">Python</span>
+        <span class="project-body"><b>Aurora Alerts</b> &mdash; Alerts when aurora activity is forecast
+        within three days, using NOAA space weather data.</span>
+        <span class="stack">Python</span>
       </div>
 
       <div class="project">
-        <b>2024 Crescendo</b> &mdash; FRC Team 7034's competition robot code, built with the student
-        software group. <span class="stack">Java, WPILib</span>
+        <span class="project-body"><b>2024 Crescendo</b> &mdash; FRC Team 7034's competition robot code,
+        built with the student software group.</span>
+        <span class="stack">Java, WPILib</span>
       </div>
 
       <div class="project">
-        <b>nguyen.ink</b> &mdash; Personal portfolio, statically generated with live GitHub and Spotify
-        data. <span class="stack">TypeScript, Next.js, Tailwind CSS</span>
+        <span class="project-body"><b>nguyen.ink</b> &mdash; Personal portfolio, statically generated
+        with live GitHub and Spotify data.</span>
+        <span class="stack">TypeScript, Next.js, Tailwind CSS</span>
       </div>
 
       <div class="project">
-        <b>ToD</b> &mdash; Discord bot that grew to roughly 6,000 servers over two years before being
-        retired. <span class="stack">JavaScript, Node.js</span>
+        <span class="project-body"><b>ToD</b> &mdash; Discord bot that grew to roughly 6,000 servers over
+        two years before being retired.</span>
+        <span class="stack">JavaScript, Node.js</span>
       </div>
     </section>
 

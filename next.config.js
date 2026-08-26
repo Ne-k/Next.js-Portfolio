@@ -12,6 +12,10 @@ module.exports = {
   poweredByHeader: false,
   compress: true,
 
+  // Several sibling repos live under the same parent folder, so Turbopack's
+  // root inference walks too far up and fails to resolve `tailwindcss`.
+  turbopack: { root: __dirname },
+
   async headers() {
     return [
       {
@@ -24,6 +28,11 @@ module.exports = {
         // Fingerprinted-by-hand assets: safe to cache hard.
         source: "/assests/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
+      {
+        // Font files are immutable: the name pins family, weight, and subset.
+        source: "/fonts/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
     ];
   },

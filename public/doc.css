@@ -1,0 +1,401 @@
+/*
+ * Shared by CN_Resume.html and CN_References.html. Same system as the site,
+ * except the sheet stays white so the PDF prints and photocopies cleanly.
+ *
+ * Paths stay relative: this has to resolve over HTTP and under the file:// URL
+ * that scripts/render-pdfs.mjs loads.
+ */
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url("fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+}
+
+:root {
+  --ink: #141513;
+  --soft: #4a4d46;
+  --faint: #666962;
+  --rule: #cdc9bd;
+  --rule-soft: #e0ddd4;
+  --signal: #b4331d;
+  --sans: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f2f1ec;
+  color: var(--soft);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  max-width: 8.5in;
+  margin: 28px auto;
+  background: #fff;
+  border: 1px solid var(--rule);
+  padding: 42px 46px;
+}
+
+/* ---------- Masthead ---------- */
+header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.9px;
+  line-height: 1.05;
+}
+
+.tagline {
+  margin-top: 6px;
+  color: var(--signal);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact {
+  margin-top: 10px;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+}
+
+.contact span:not(:last-child)::after {
+  content: "  /  ";
+  color: var(--rule);
+}
+
+.contact a {
+  color: var(--faint);
+  text-decoration: none;
+}
+
+/* ---------- Sections ---------- */
+section {
+  margin-top: 22px;
+}
+
+h2 {
+  margin: 0 0 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.summary {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* ---------- Entries ---------- */
+.entry {
+  margin-bottom: 15px;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+}
+
+h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+h3 .org {
+  color: var(--soft);
+  font-weight: 400;
+}
+
+.dates {
+  flex: none;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.place {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+ul {
+  margin: 5px 0 0;
+  padding-left: 15px;
+}
+
+li {
+  margin-bottom: 3px;
+}
+
+/* ---------- Skills ---------- */
+.skills-row {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 7px 14px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.skills-row dt {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.skills-row dd {
+  margin: 0;
+}
+
+/* ---------- Projects ---------- */
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 11px;
+  font-size: 13px;
+}
+
+.project:last-child {
+  margin-bottom: 0;
+}
+
+.project b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.project .stack {
+  flex: none;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ---------- Education ---------- */
+.edu {
+  margin-bottom: 12px;
+}
+
+.edu:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- References ---------- */
+.ref {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.ref:last-child {
+  border-bottom: none;
+}
+
+.ref-name {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ref-role {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+}
+
+.ref-lines {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 24px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+}
+
+.ref-lines li {
+  overflow-wrap: break-word;
+}
+
+/* Label above value, so the fields line up across every reference. */
+.ref-lines .label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ref-lines a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ---------- Print ---------- */
+@media print {
+  body {
+    background: #fff;
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  h1 {
+    font-size: 21pt;
+  }
+
+  .tagline {
+    font-size: 8pt;
+  }
+
+  .contact {
+    font-size: 7.5pt;
+  }
+
+  h2 {
+    margin-bottom: 9pt;
+    font-size: 8pt;
+  }
+
+  h3 {
+    font-size: 10pt;
+  }
+
+  .dates,
+  .place,
+  .project .stack,
+  .skills-row dt,
+  .ref-lines .label {
+    font-size: 7.5pt;
+  }
+
+  .summary,
+  .skills-row,
+  .project,
+  li {
+    font-size: 9.5pt;
+  }
+
+  section {
+    margin-top: 15pt;
+  }
+
+  header {
+    padding-bottom: 10pt;
+  }
+
+  .entry {
+    margin-bottom: 11pt;
+  }
+
+  .edu,
+  .project {
+    margin-bottom: 9pt;
+  }
+
+  .skills-row {
+    gap: 6pt 14pt;
+  }
+
+  ul {
+    margin-top: 3pt;
+  }
+
+  li {
+    margin-bottom: 2pt;
+  }
+
+  .ref-name {
+    font-size: 11pt;
+  }
+
+  .ref-role,
+  .ref-lines {
+    font-size: 9.5pt;
+  }
+
+  .entry,
+  .edu,
+  .ref {
+    break-inside: avoid;
+  }
+}

@@ -6,16 +6,39 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link rel="icon" type="image/png" href="/assests/avatar.png" />
-          <link rel="apple-touch-icon" href="/assests/avatar.png" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/assests/icon-32.png"
+          />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/assests/icon-180.png"
+          />
           <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-          {/* Scroll-reveal starts elements hidden; without JS they must stay visible. */}
-          <noscript>
-            <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
-          </noscript>
+          {/*
+            Fonts are fetched in CORS mode even same-origin, so dropping
+            `crossOrigin` here makes the browser download each one twice.
+          */}
+          {[
+            "ibm-plex-sans-latin-400-normal.woff2",
+            "ibm-plex-sans-latin-600-normal.woff2",
+            "ibm-plex-mono-latin-500-normal.woff2",
+          ].map((file) => (
+            <link
+              key={file}
+              rel="preload"
+              as="font"
+              type="font/woff2"
+              href={`/fonts/${file}`}
+              crossOrigin="anonymous"
+            />
+          ))}
         </Head>
-        <body className="bg-ink-950 antialiased">
+        <body className="bg-paper antialiased">
           <Main />
           <NextScript />
         </body>

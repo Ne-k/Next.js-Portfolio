@@ -5,23 +5,45 @@ import Script from "next/script";
 
 import "../styles/globals.css";
 
-import "@fontsource/jost/400.css";
-import "@fontsource/jost/500.css";
-import "@fontsource/jost/600.css";
-import "@fontsource/sen/400.css";
-
 const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
-function MyApp({ Component, pageProps }: AppProps) {
+/** The only routes that follow the system light/dark setting. */
+const AUTO_THEME_ROUTES = new Set(["/", "/landing"]);
+
+function MyApp({ Component, pageProps, router }: AppProps) {
+  const followsSystemTheme = AUTO_THEME_ROUTES.has(router.pathname);
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#08080b" />
+
+        {followsSystemTheme ? (
+          <>
+            <meta
+              key="theme-color-light"
+              name="theme-color"
+              media="(prefers-color-scheme: light)"
+              content="#f2f1ec"
+            />
+            <meta
+              key="theme-color-dark"
+              name="theme-color"
+              media="(prefers-color-scheme: dark)"
+              content="#141311"
+            />
+            <meta name="color-scheme" content="light dark" />
+          </>
+        ) : (
+          <>
+            <meta name="theme-color" content="#f2f1ec" />
+            <meta name="color-scheme" content="light" />
+          </>
+        )}
       </Head>
 
-      {/* Only ship the analytics bundle when an ID is actually configured. */}
-      {GA_ID ? (
+      {/* Landing ships no client runtime, so it loads analytics itself. */}
+      {GA_ID && !followsSystemTheme ? (
         <>
           <Script
             strategy="lazyOnload"

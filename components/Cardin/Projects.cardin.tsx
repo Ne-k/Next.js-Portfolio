@@ -1,27 +1,7 @@
-import { GoRepoForked, GoStar, HiArrowUpRight, SiGithub } from "../Misc/Icons.collection";
-import { Reveal } from "../Misc/Reveal.component";
+import { GoRepoForked, GoStar, SiGithub } from "../Misc/Icons.collection";
 import { Section } from "../Misc/Section.component";
 import type { Project } from "../../lib/github";
 import { site } from "../../lib/site";
-
-/** GitHub's own language colours, so the dots read the way people expect. */
-const languageColors: Record<string, string> = {
-  TypeScript: "#3178c6",
-  JavaScript: "#f1e05a",
-  Python: "#3572A5",
-  Java: "#b07219",
-  "C++": "#f34b7d",
-  C: "#555555",
-  "C#": "#178600",
-  Go: "#00ADD8",
-  Rust: "#dea584",
-  HTML: "#e34c26",
-  CSS: "#563d7c",
-  Shell: "#89e051",
-  Kotlin: "#A97BFF",
-  Vue: "#41b883",
-  Dockerfile: "#384d54",
-};
 
 // Fixed to UTC so the build-time render and the client render always agree.
 const monthFormatter = new Intl.DateTimeFormat("en-US", {
@@ -45,118 +25,115 @@ const Projects = ({ projects }: ProjectsProps) => {
     <Section
       id="projects"
       index="03"
+      meta="From GitHub"
       title="Things I have built"
       description="Pulled from my GitHub and sorted by whatever I touched most recently, so this list stays honest."
     >
       {projects.length === 0 ? (
-        <Reveal className="rounded-xl border border-white/8 bg-white/[0.02] p-10 text-center">
-          <p className="font-jost text-lg text-white">Projects are taking a moment.</p>
-          <p className="mt-2 text-sm text-slate-400">
-            The GitHub listing could not be loaded right now.{" "}
+        <div className="max-w-measure border border-rule bg-paper-sunk p-8">
+          <p className="label text-ink">Listing unavailable</p>
+          <p className="mt-3 text-[0.9375rem] leading-[1.7]">
+            The GitHub API could not be reached for this build.{" "}
             <a
               href={site.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-accent-300 underline underline-offset-4 hover:text-accent-200"
+              className="text-signal underline decoration-signal/40 underline-offset-4 transition-colors hover:decoration-signal"
             >
               Browse the repositories directly
             </a>
             .
           </p>
-        </Reveal>
+        </div>
       ) : (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <Reveal as="li" key={project.id} delay={index * 60} className="h-full">
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-full flex-col rounded-xl border border-white/8 bg-white/[0.02] p-5 transition-colors duration-200 hover:border-accent-400/40 hover:bg-white/[0.04]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="min-w-0 break-words font-jost text-lg font-semibold text-white group-hover:text-accent-300">
-                    {project.name}
-                  </h3>
-                  <HiArrowUpRight
+        <ul className="border-b border-rule-soft">
+          {projects.map((project, index) => {
+            const updated = formatUpdated(project.pushedAt);
+
+            return (
+              <li key={project.id} className="border-t border-rule-soft">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group -mx-4 grid gap-x-8 gap-y-3 px-4 py-6 transition-colors hover:bg-paper-sunk md:grid-cols-[2.5rem_minmax(0,1fr)_10rem]"
+                >
+                  <span
                     aria-hidden="true"
-                    className="mt-1 shrink-0 text-sm text-slate-500 transition-all duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-300"
-                  />
-                </div>
-
-                {project.archived ? (
-                  <span className="mt-2 inline-flex w-fit rounded-full border border-amber-300/30 bg-amber-400/10 px-2 py-0.5 font-jost text-[0.65rem] font-semibold uppercase tracking-wide text-amber-200">
-                    Archived
+                    className="label pt-1 text-ink-faint"
+                  >
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                ) : null}
 
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">{project.description}</p>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <h3 className="min-w-0 break-words text-base font-medium text-ink transition-colors group-hover:text-signal">
+                        {project.name}
+                      </h3>
 
-                {/* Spacer keeps the meta row pinned to the bottom of every card. */}
-                <div className="flex-1" />
+                      {project.archived ? (
+                        <span className="label border border-rule px-1.5 py-0.5 text-ink-faint">
+                          Archived
+                        </span>
+                      ) : null}
+                    </div>
 
-                {project.topics.length > 0 ? (
-                  <ul className="mt-4 flex flex-wrap gap-1.5">
-                    {project.topics.map((topic) => (
-                      <li
-                        key={topic}
-                        className="rounded-md bg-white/5 px-2 py-0.5 font-jost text-[0.7rem] text-slate-400"
-                      >
-                        {topic}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+                    <p className="mt-2 line-clamp-3 max-w-measure text-[0.9375rem] leading-[1.6]">
+                      {project.description}
+                    </p>
 
-                <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/5 pt-4 font-jost text-xs text-slate-400">
-                  {project.language ? (
-                    <span className="flex items-center gap-1.5">
-                      <span
-                        aria-hidden="true"
-                        className="h-2.5 w-2.5 rounded-full"
-                        style={{ backgroundColor: languageColors[project.language] ?? "#8b8b95" }}
-                      />
-                      {project.language}
-                    </span>
-                  ) : null}
+                    {project.topics.length > 0 ? (
+                      <p className="label mt-3 text-ink-faint">
+                        {project.topics.join(" · ")}
+                      </p>
+                    ) : null}
+                  </div>
 
-                  {project.stars > 0 ? (
-                    <span className="flex items-center gap-1">
-                      <GoStar aria-hidden="true" />
-                      {project.stars}
-                      <span className="sr-only">stars</span>
-                    </span>
-                  ) : null}
+                  <div className="label flex flex-wrap items-center gap-x-4 gap-y-1.5 text-ink-faint md:flex-col md:items-end md:gap-y-2 md:pt-1">
+                    {project.language ? (
+                      <span className="text-ink">{project.language}</span>
+                    ) : null}
 
-                  {project.forks > 0 ? (
-                    <span className="flex items-center gap-1">
-                      <GoRepoForked aria-hidden="true" />
-                      {project.forks}
-                      <span className="sr-only">forks</span>
-                    </span>
-                  ) : null}
+                    {project.stars > 0 || project.forks > 0 ? (
+                      <span className="flex items-center gap-3">
+                        {project.stars > 0 ? (
+                          <span className="flex items-center gap-1.5">
+                            <GoStar aria-hidden="true" />
+                            {project.stars}
+                            <span className="sr-only">stars</span>
+                          </span>
+                        ) : null}
 
-                  {formatUpdated(project.pushedAt) ? (
-                    <span className="ml-auto">Updated {formatUpdated(project.pushedAt)}</span>
-                  ) : null}
-                </div>
-              </a>
-            </Reveal>
-          ))}
+                        {project.forks > 0 ? (
+                          <span className="flex items-center gap-1.5">
+                            <GoRepoForked aria-hidden="true" />
+                            {project.forks}
+                            <span className="sr-only">forks</span>
+                          </span>
+                        ) : null}
+                      </span>
+                    ) : null}
+
+                    {updated ? <span>Updated {updated}</span> : null}
+                  </div>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       )}
 
-      <Reveal className="mt-10 flex justify-center">
+      <div className="mt-10">
         <a
           href={site.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-5 py-3 font-jost text-sm font-medium text-white transition-colors hover:border-white/25 hover:bg-white/10"
+          className="label inline-flex items-center gap-2.5 border border-ink px-5 py-3 text-ink transition-colors hover:bg-ink hover:text-paper"
         >
-          <SiGithub className="text-base" />
+          <SiGithub aria-hidden="true" className="text-sm" />
           See everything on GitHub
         </a>
-      </Reveal>
+      </div>
     </Section>
   );
 };

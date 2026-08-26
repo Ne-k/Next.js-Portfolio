@@ -1,4 +1,3 @@
-import { Reveal } from "../Misc/Reveal.component";
 import { Section } from "../Misc/Section.component";
 
 const facts = [
@@ -15,7 +14,8 @@ const facts = [
   {
     label: "Volunteering",
     value: "AV crew at FIRST Robotics events",
-    detail: "Same competitions I used to compete in, different side of the glass",
+    detail:
+      "Same competitions I used to compete in, different side of the glass",
   },
   {
     label: "Shooting",
@@ -26,44 +26,47 @@ const facts = [
 
 const About = () => {
   return (
-    <Section id="about" index="01" title="About me">
-      <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-        <Reveal className="space-y-4 text-base leading-7 text-slate-400">
-          <p>
-            I got into this through robotics. In 2021 I joined FRC Team 7034 and FTC Team 10332 as a
-            software developer, which in practice meant debugging autonomous routines at 11pm the
-            night before a match with the whole team watching. Four seasons of that taught me more
-            about shipping under pressure than any class has.
-          </p>
-          <p>
-            Somewhere along the way I got curious about the other direction: not just making a system
-            work, but figuring out where it gives. That curiosity is why I&apos;m on the cybersecurity
-            track now, working through penetration testing and digital forensics.
-          </p>
-          <p>
-            The rest of my time goes to backend projects, a couple of Linux servers I keep running
-            for no good reason, and teaching kids to code. One of my old Discord bots quietly reached
-            about six thousand servers before I archived it, which is still the strangest thing on my
-            GitHub.
-          </p>
-          <p>
-            Off the clock I&apos;m usually behind a camera. I shot video professionally for
-            IConnect007 for two years, and I still take the A7R IV out most weekends.
-          </p>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <dl className="divide-y divide-white/8 border-y border-white/8">
-            {facts.map((fact) => (
-              <div key={fact.label} className="py-4">
-                <dt className="font-jost text-sm text-accent-400">{fact.label}</dt>
-                <dd className="mt-1 font-jost text-base text-white">{fact.value}</dd>
-                <dd className="mt-0.5 text-sm leading-6 text-slate-400">{fact.detail}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
+    <Section id="about" index="01" meta="Background" title="About me">
+      <div className="max-w-measure space-y-5 text-[0.9375rem] leading-[1.75]">
+        <p>
+          I got into this through robotics. In 2021 I joined FRC Team 7034 and
+          FTC Team 10332 as a software developer, which in practice meant
+          debugging autonomous routines at 11pm the night before a match with
+          the whole team watching. Four seasons of that taught me more about
+          shipping under pressure than any class has.
+        </p>
+        <p>
+          Somewhere along the way I got curious about the other direction: not
+          just making a system work, but figuring out where it gives. That
+          curiosity is why I&apos;m on the cybersecurity track now, working
+          through penetration testing and digital forensics.
+        </p>
+        <p>
+          The rest of my time goes to backend projects, a couple of Linux
+          servers I keep running for no good reason, and teaching kids to code.
+          One of my old Discord bots quietly reached about six thousand servers
+          before I archived it, which is still the strangest thing on my GitHub.
+        </p>
+        <p>
+          Off the clock I&apos;m usually behind a camera. I shot video
+          professionally for IConnect007 for two years, and I still take the A7R
+          IV out most weekends.
+        </p>
       </div>
+
+      <dl className="mt-14 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        {facts.map((fact) => (
+          <div key={fact.label} className="border-t border-ink pt-3">
+            <dt className="label text-ink-faint">{fact.label}</dt>
+            <dd className="mt-2 text-[0.9375rem] leading-snug font-medium text-ink">
+              {fact.value}
+            </dd>
+            <dd className="mt-1.5 text-sm leading-[1.6] text-ink-faint">
+              {fact.detail}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </Section>
   );
 };

@@ -1,77 +1,82 @@
-import { HiArrowUpRight } from "../Misc/Icons.collection";
+import { Sheet } from "../Misc/Sheet.component";
 
-const destinations = [
+const hosts = [
   {
-    name: "cardin.nguyen.ink",
-    person: "Cardin Nguyen",
-    blurb: "Backend developer and cybersecurity student. Projects, skills, and resume.",
+    host: "cardin.nguyen.ink",
+    owner: "Cardin Nguyen",
+    blurb:
+      "Backend developer and cybersecurity student. Projects, skills, and resume.",
     href: "https://cardin.nguyen.ink",
-    live: true,
+    status: "Live",
   },
   {
-    name: "dylan.nguyen.ink",
-    person: "Dylan Nguyen",
+    host: "dylan.nguyen.ink",
+    owner: "Dylan Nguyen",
     blurb: "Reserved and under construction. The full site will launch here.",
     href: "https://dylan.nguyen.ink",
-    live: false,
+    status: "Reserved",
   },
 ];
 
+const columns = "sm:grid-cols-[minmax(0,1fr)_9rem_5rem]";
+
 const LandingHero = () => {
   return (
-    <div className="relative isolate mx-auto flex min-h-screen max-w-4xl flex-col justify-center px-5 py-16 sm:px-8">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,#000_35%,transparent_100%)]" />
-        <div className="absolute left-1/2 top-1/4 h-96 w-[40rem] -translate-x-1/2 rounded-full bg-accent-500/10 blur-[120px]" />
-      </div>
-
-      <p className="font-jost text-xs uppercase tracking-[0.4em] text-accent-300/80">nguyen.ink</p>
-
-      <h1 className="mt-6 font-jost text-4xl font-semibold tracking-tight sm:text-6xl">
-        <span className="text-gradient">Two people, one domain.</span>
+    <Sheet masthead="nguyen.ink / index" theme="auto">
+      <h1 className="max-w-[12ch] text-[clamp(2.5rem,9vw,4.5rem)] leading-[0.95] font-semibold tracking-[-0.035em] text-ink">
+        Two people, one domain.
       </h1>
 
-      <p className="mt-5 max-w-xl text-base leading-7 text-slate-400 sm:text-lg">
-        This is the front door. Pick a subdomain below, or come back later for the full landing
-        experience.
+      <p className="mt-6 max-w-measure text-[1.0625rem] leading-[1.7]">
+        This is the front door. Pick a subdomain below, or come back later for
+        the full landing experience.
       </p>
 
-      <ul className="mt-12 grid gap-4 sm:grid-cols-2">
-        {destinations.map((destination) => (
-          <li key={destination.href}>
-            <a
-              href={destination.href}
-              className="group flex h-full flex-col rounded-2xl border border-white/8 bg-white/[0.03] p-6 transition-all duration-200 hover:-translate-y-1 hover:border-accent-400/30 hover:bg-white/[0.06]"
+      <div className="mt-16">
+        <div
+          className={`hidden gap-x-6 border-b border-ink pb-2.5 sm:grid ${columns}`}
+        >
+          <span className="label text-ink-faint">Host</span>
+          <span className="label text-ink-faint">Owner</span>
+          <span className="label text-right text-ink-faint">Status</span>
+        </div>
+
+        <ul className="border-b border-rule-soft">
+          {hosts.map((entry) => (
+            <li
+              key={entry.host}
+              className="border-t border-rule-soft first:border-t-0 sm:first:border-t"
             >
-              <div className="flex items-start justify-between gap-3">
-                <span className="font-jost text-lg font-semibold text-white group-hover:text-accent-300">
-                  {destination.person}
-                </span>
-                <HiArrowUpRight
-                  aria-hidden="true"
-                  className="mt-1 shrink-0 text-sm text-slate-500 transition-all duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-300"
-                />
-              </div>
-
-              <span className="mt-1 font-jost text-sm text-slate-400">{destination.name}</span>
-              <span className="mt-4 flex-1 text-sm leading-6 text-slate-400">
-                {destination.blurb}
-              </span>
-
-              <span
-                className={`mt-5 w-fit rounded-full border px-2.5 py-0.5 font-jost text-[0.65rem] uppercase tracking-wide ${
-                  destination.live
-                    ? "border-emerald-300/30 bg-emerald-400/10 text-emerald-200"
-                    : "border-white/10 bg-white/5 text-slate-400"
-                }`}
+              <a
+                href={entry.href}
+                className={`group -mx-4 grid items-baseline gap-x-6 gap-y-2 px-4 py-5 transition-colors hover:bg-paper-sunk ${columns}`}
               >
-                {destination.live ? "Live" : "Coming soon"}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+                <span className="min-w-0">
+                  <span className="label block text-ink transition-colors group-hover:text-signal">
+                    {entry.host}
+                  </span>
+                  <span className="mt-2 block max-w-measure text-[0.9375rem] leading-[1.6]">
+                    {entry.blurb}
+                  </span>
+                </span>
+
+                <span className="text-[0.9375rem] text-ink-faint">
+                  {entry.owner}
+                </span>
+
+                <span
+                  className={`label sm:text-right ${
+                    entry.status === "Live" ? "text-signal" : "text-ink-faint"
+                  }`}
+                >
+                  {entry.status}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Sheet>
   );
 };
 

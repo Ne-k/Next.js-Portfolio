@@ -3,6 +3,8 @@ import type { NextPage } from "next";
 import { LandingHero } from "../../components/Landing";
 import { Seo } from "../../components/Misc/Seo.component";
 
+const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
+
 const LandingPage: NextPage = () => {
   return (
     <>
@@ -10,13 +12,40 @@ const LandingPage: NextPage = () => {
         title="nguyen.ink"
         description="The front door for nguyen.ink. Pick a subdomain: cardin.nguyen.ink for Cardin Nguyen's portfolio, or dylan.nguyen.ink."
         url="https://nguyen.ink"
+        image="https://nguyen.ink/assests/og-nguyen.png"
+        imageAlt="nguyen.ink"
       />
 
-      <main className="min-h-screen overflow-hidden">
+      <main>
         <LandingHero />
       </main>
+
+      {/* Plain tags: `config` below strips React, so next/script never runs here. */}
+      {GA_ID ? (
+        <>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(
+                GA_ID,
+              )},{page_path:window.location.pathname});`,
+            }}
+          />
+        </>
+      ) : null}
     </>
   );
+};
+
+/*
+ * Every link here points at a different host and nothing holds state, so there
+ * is no client navigation to preserve. Served as plain HTML and CSS.
+ */
+export const config = {
+  unstable_runtimeJS: false,
 };
 
 export default LandingPage;
