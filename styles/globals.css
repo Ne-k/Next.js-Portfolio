@@ -80,14 +80,15 @@
 }
 
 /*
- * Dark mode, opted into per page by rendering `.theme-auto`. Going through
- * :has() means the page declares itself: no route list in _document, no JS,
- * and no flash, since the tokens resolve on the first paint.
+ * The dark palette. `paper` is still the surface and `ink` still the text --
+ * they just swap ends. Ratios are against the dark --color-paper.
  *
- * `paper` is still the surface and `ink` still the text; they just swap ends.
+ * Two selectors carry identical values because a media query cannot be part of
+ * a selector list. The first covers readers whose system asks for dark and who
+ * have not overridden it; the second an explicit choice. Keep them in sync.
  */
 @media (prefers-color-scheme: dark) {
-  :root:has(.theme-auto) {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
 
     --color-paper: #141311;
@@ -108,8 +109,29 @@
   }
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-paper: #141311;
+  --color-paper-sunk: #1c1b18;
+
+  --color-ink: #f2f1ec; /* 16.5:1 */
+  --color-ink-soft: #c4c2b8; /* 10.4:1 */
+  --color-ink-faint: #8e8c82; /*  5.5:1 */
+
+  --color-rule: #35342f;
+  --color-rule-soft: #26251f;
+
+  /* Oxide lifted off the floor; #b4331d turns muddy on a dark ground. */
+  --color-signal: #e5623f; /*  5.4:1 */
+  --color-signal-sunk: #2a1a14;
+
+  --color-graph: #f2f1ec0f;
+}
+
 @layer base {
   html {
+    color-scheme: light;
     scroll-behavior: smooth;
     /* Offset anchor targets so the sticky header never covers a heading. */
     scroll-padding-top: 5rem;
@@ -169,6 +191,43 @@
       transparent 1px
     );
   background-size: 28px 28px;
+}
+
+/*
+ * Theme control: a stamped field, not a sun/moon icon. Entirely stateless --
+ * the script in _document owns the choice and writes it to <html>, and the
+ * pressed state below is derived from that, so nothing here needs React.
+ */
+.theme-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-rule);
+}
+
+.theme-toggle button {
+  /* Preflight resets text-transform on buttons, so .label cannot reach here. */
+  text-transform: inherit;
+  padding: 0.25rem 0.5rem;
+  color: var(--color-ink-faint);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.theme-toggle button + button {
+  border-left: 1px solid var(--color-rule);
+}
+
+.theme-toggle button:hover {
+  background-color: var(--color-paper-sunk);
+  color: var(--color-ink);
+}
+
+:root[data-theme-pref="auto"] .theme-toggle [data-theme-set="auto"],
+:root[data-theme-pref="light"] .theme-toggle [data-theme-set="light"],
+:root[data-theme-pref="dark"] .theme-toggle [data-theme-set="dark"] {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
 }
 
 /* The mono micro-label used for every field name, index, and readout. */

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { HiBars3, HiXMark } from "../Misc/Icons.collection";
+import { ThemeToggle } from "../Misc/ThemeToggle.component";
 import { navLinks, site } from "../../lib/site";
 
 const sectionIds = navLinks.map((link) => link.url.replace("#", ""));
@@ -84,7 +85,7 @@ const Header = () => {
           </span>
         </a>
 
-        <div className="hidden items-center gap-7 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => {
             const id = link.url.replace("#", "");
 
@@ -112,6 +113,8 @@ const Header = () => {
           >
             Resume
           </a>
+
+          <ThemeToggle />
         </div>
 
         <button
@@ -157,6 +160,11 @@ const Header = () => {
           >
             Resume (PDF)
           </a>
+
+          <div className="mt-6 flex items-center justify-between">
+            <span className="label text-ink-faint">Theme</span>
+            <ThemeToggle />
+          </div>
         </div>
       ) : null}
     </header>

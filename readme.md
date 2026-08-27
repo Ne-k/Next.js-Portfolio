@@ -46,10 +46,17 @@ Mono for every label and readout, graphite ink on warm paper, and a single oxide
 there are no rounded corners, shadows, or gradients anywhere. Tokens live in the `@theme` block
 of [`styles/globals.css`](styles/globals.css) and are mirrored in [`public/doc.css`](public/doc.css).
 
-The landing page is the one route that follows the reader's system light/dark setting. It opts in
-by rendering `.theme-auto` (see `Sheet`), which a `:has()` rule flips the tokens against, so there
-is no theme flash and no JavaScript involved. It also sets `unstable_runtimeJS: false`: every link
-on it points at a different host and nothing holds state, so it ships as plain HTML and CSS.
+Dark mode is site-wide, with a three-state toggle (auto / light / dark) in the masthead and in the
+Cardin header. Auto follows `prefers-color-scheme`; an explicit choice is stored in a `theme`
+cookie scoped to `.nguyen.ink`, so it carries across all three subdomains, which cannot share
+localStorage.
+
+The toggle holds no state. An inline script in [`_document`](pages/_document.tsx) applies the
+stored choice before the first paint and writes it to `<html>`: `data-theme` drives the palette
+(absent for auto, which hands the decision back to the media query) and `data-theme-pref` records
+what was picked. CSS derives the pressed state from that, so `ThemeToggle` never re-renders and
+works on the landing page, which ships no React at all — it sets `unstable_runtimeJS: false`,
+since every link on it points at a different host and nothing holds state.
 
 ## How the pieces fit
 

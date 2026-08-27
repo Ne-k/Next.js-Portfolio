@@ -22,7 +22,7 @@ const columns = "sm:grid-cols-[minmax(0,1fr)_9rem_5rem]";
 
 const LandingHero = () => {
   return (
-    <Sheet masthead="nguyen.ink / index" theme="auto">
+    <Sheet masthead="nguyen.ink / index">
       <h1 className="max-w-[12ch] text-[clamp(2.5rem,9vw,4.5rem)] leading-[0.95] font-semibold tracking-[-0.035em] text-ink">
         Two people, one domain.
       </h1>

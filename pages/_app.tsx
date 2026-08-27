@@ -7,43 +7,17 @@ import "../styles/globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
 
-/** The only routes that follow the system light/dark setting. */
-const AUTO_THEME_ROUTES = new Set(["/", "/landing"]);
+/** Routes served without a client runtime, which load analytics themselves. */
+const NO_RUNTIME_ROUTES = new Set(["/", "/landing"]);
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const followsSystemTheme = AUTO_THEME_ROUTES.has(router.pathname);
-
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        {followsSystemTheme ? (
-          <>
-            <meta
-              key="theme-color-light"
-              name="theme-color"
-              media="(prefers-color-scheme: light)"
-              content="#f2f1ec"
-            />
-            <meta
-              key="theme-color-dark"
-              name="theme-color"
-              media="(prefers-color-scheme: dark)"
-              content="#141311"
-            />
-            <meta name="color-scheme" content="light dark" />
-          </>
-        ) : (
-          <>
-            <meta name="theme-color" content="#f2f1ec" />
-            <meta name="color-scheme" content="light" />
-          </>
-        )}
       </Head>
 
-      {/* Landing ships no client runtime, so it loads analytics itself. */}
-      {GA_ID && !followsSystemTheme ? (
+      {GA_ID && !NO_RUNTIME_ROUTES.has(router.pathname) ? (
         <>
           <Script
             strategy="lazyOnload"
