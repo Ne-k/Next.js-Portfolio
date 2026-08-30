@@ -71,7 +71,12 @@ since every link on it points at a different host and nothing holds state.
   the site and self-hosts its fonts from `public/fonts/` so the `file://` render resolves them.
   Edit the HTML, then run `npm run render:pdfs`.
 - **Social cards and favicons** are generated, not hand-made. [`scripts/render-og.mjs`](scripts/render-og.mjs)
-  screenshots two 1200x630 cards and downsizes the portrait into `icon-32.png` / `icon-180.png`.
+  screenshots two 1200x630 cards and draws one favicon per host: `cn` for Cardin, `dn` for Dylan,
+  `n` for the landing page, each as `icon-<slug>-{16,32,180}.png`. The mark is the masthead's
+  Plex Mono monogram, pastel pink ground and plum letters; the 16px slot drops to a single letter,
+  because two glyphs cannot hold their counters at that size. Letters are centred on their trimmed
+  ink bounding box, not on the line box, so side bearings cannot throw them off. Cardin's set also
+  becomes `/favicon.ico`.
   Run `npm run render:og` after changing the palette, the fonts, or the avatar.
 
 [Live site](https://nguyen.ink)

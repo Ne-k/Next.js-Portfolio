@@ -78,7 +78,14 @@ const Header = () => {
       >
         <a href="#top" className="flex items-center gap-3">
           <span className="label grid h-7 w-7 place-items-center border border-ink text-ink">
-            CN
+            {/*
+              Two nudges to centre the letterforms rather than their text box.
+              -mr cancels the trailing letter-space `.label` adds after the "N",
+              which otherwise pulls the pair 0.7px left of centre; translate-y
+              corrects the 0.8px the line box sits high. Both in em, so they
+              hold if the mark is ever resized.
+            */}
+            <span className="-mr-[0.12em] translate-y-[0.073em]">CN</span>
           </span>
           <span className="label hidden text-ink sm:inline">
             Cardin Nguyen<span className="text-ink-faint"> / nguyen.ink</span>

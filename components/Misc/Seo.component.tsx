@@ -10,6 +10,12 @@ type SeoProps = {
   /** Emitted as a JSON-LD <script>. */
   jsonLd?: Record<string, unknown>;
   noIndex?: boolean;
+  /**
+   * Slug of the icon set in public/assests, e.g. "cn" for icon-cn-32.png.
+   * Lives here rather than in _document because one document serves three
+   * hosts, and each wants its own initials in the tab.
+   */
+  icon?: string;
 };
 
 const DEFAULT_IMAGE = "https://cardin.nguyen.ink/assests/og-image.png";
@@ -24,6 +30,7 @@ const Seo = ({
   keywords,
   jsonLd,
   noIndex = false,
+  icon = "n",
 }: SeoProps) => {
   return (
     <Head>
@@ -32,6 +39,28 @@ const Seo = ({
       {keywords ? <meta name="keywords" content={keywords} /> : null}
       <link rel="canonical" href={url} />
       {noIndex ? <meta name="robots" content="noindex, nofollow" /> : null}
+
+      {/*
+        Both sizes are declared so standard-DPI tabs pick the 16px cut rather
+        than downsampling the 32px one, which turns two letters to mush.
+      */}
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href={`/assests/icon-${icon}-16.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href={`/assests/icon-${icon}-32.png`}
+      />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href={`/assests/icon-${icon}-180.png`}
+      />
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="nguyen.ink" />

@@ -110,6 +110,94 @@ const cards = [
   },
 ];
 
+/*
+ * The site's own mark is a hairline square holding "CN" in Plex Mono. That
+ * reads at 28px in the masthead but not at 16px in a tab strip, where a 1px
+ * rule disappears and an unfilled ground is whatever colour the browser chrome
+ * happens to be. So the favicon keeps the letterforms and inverts the
+ * construction: oxide ground, paper letters, no border to lose.
+ *
+ * Two glyphs still cannot hold up at 16px -- the counters fill in and "CN"
+ * turns to mush -- so each mark also renders a single-letter cut used for the
+ * 16px slot only. Standard-DPI tabs get that; everything else gets the pair.
+ *
+ * One mark per host. Dylan's site wearing Cardin's initials would be worse
+ * than the Vercel triangle these replace.
+ */
+const MARK_PX = 512;
+
+/*
+ * Pastel pink ground, deep plum letters. The pair is 9.6:1, which the glyphs
+ * need: at 16px a monogram is a handful of pixels, and a soft-on-soft pastel
+ * pairing would dissolve into a blank chip.
+ */
+const MARK_GROUND = "#f5c6d9";
+const MARK_INK = "#3d2130";
+
+const marks = [
+  { slug: "cn", text: "CN", small: "C" },
+  { slug: "dn", text: "DN", small: "D" },
+  { slug: "n", text: "N", small: "N" },
+];
+
+/*
+ * Glyphs only, on a transparent ground. Centring happens after the render,
+ * against the real ink bounding box -- em-based nudges cannot account for
+ * side bearings, and got the two-letter marks 5px off.
+ *
+ * `stroke` synthesises a heavier weight for the 16px cut. Downsampling 512 to
+ * 16 leaves a ~1px stem, which reads washed out; widening the glyph outline by
+ * 14px first lands it nearer 1.5px. Plex Mono ships no weight above 500 here.
+ */
+const markHtml = (text, stroke = 0) => `<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-display: block;
+    src: url("${fontUrl("ibm-plex-mono-latin-500-normal.woff2")}") format("woff2"); }
+
+  html, body { margin: 0; background: transparent; }
+
+  .mark {
+    width: ${MARK_PX}px; height: ${MARK_PX}px;
+    display: flex; align-items: center; justify-content: center;
+    color: ${MARK_INK};
+    font-family: "IBM Plex Mono", monospace; font-weight: 500;
+    font-size: 320px; line-height: 1; letter-spacing: -0.04em;
+    -webkit-text-stroke: ${stroke}px ${MARK_INK};
+    paint-order: stroke fill;
+  }
+</style></head>
+<body><div class="mark">${text}</div></body></html>`;
+
+/**
+ * Trims the render to its ink, scales that to fill the given fraction of the
+ * tile, and composites it dead centre on the pink ground. Because the input is
+ * the trimmed bounding box, "centre" here is the letterforms themselves rather
+ * than the line box they happened to sit in.
+ */
+async function composeMark(glyphPng, { widthFrac, heightFrac }) {
+  const trimmed = await sharp(glyphPng).trim({ threshold: 8 }).toBuffer();
+
+  const fitted = await sharp(trimmed)
+    .resize({
+      width: Math.round(MARK_PX * widthFrac),
+      height: Math.round(MARK_PX * heightFrac),
+      fit: "inside",
+    })
+    .toBuffer();
+
+  return sharp({
+    create: {
+      width: MARK_PX,
+      height: MARK_PX,
+      channels: 4,
+      background: MARK_GROUND,
+    },
+  })
+    .composite([{ input: fitted, gravity: "center" }])
+    .png()
+    .toBuffer();
+}
+
 async function main() {
   const browser = await puppeteer.launch({ headless: true });
 
@@ -149,22 +237,58 @@ async function main() {
       );
     }
 
-    // The favicon used to point at the raw 2419px avatar: 6.5 MB for a 32px square.
-    for (const [size, name] of [
-      [180, "icon-180.png"],
-      [32, "icon-32.png"],
-    ]) {
-      const out = path.join(ASSET_DIR, name);
-      await sharp(path.join(ASSET_DIR, "avatar.png"))
-        .resize(size, size)
-        .png({ quality: 90 })
-        .toFile(out);
-      const stat = await fs.stat(out);
-      console.log(
-        `${name}  ${size}x${size}  ${(stat.size / 1024).toFixed(1)} KB`,
-      );
+    /*
+     * A portrait is unreadable at 32px, so the icons render from the mark
+     * instead. Drawn at 512 and downsampled, which keeps the stroke weights
+     * proportional at every size.
+     */
+    await page.setViewport({ width: MARK_PX, height: MARK_PX });
+
+    const shoot = async (text, stroke) => {
+      await page.setContent(markHtml(text, stroke), { waitUntil: "load" });
+      await page.evaluate(() => document.fonts.ready);
+
+      return page.screenshot({ type: "png", omitBackground: true });
+    };
+
+    for (const mark of marks) {
+      // A pair of glyphs is limited by width, a lone one by height, so each
+      // cut fills its tile without the single letter looking undersized.
+      const full = await composeMark(await shoot(mark.text, 0), {
+        widthFrac: 0.78,
+        heightFrac: 0.62,
+      });
+
+      // Always a separate render: the small cut differs by weight, not just
+      // by letter count, so even a one-letter mark needs its own pass.
+      const small = await composeMark(await shoot(mark.small, 14), {
+        widthFrac: 0.62,
+        heightFrac: 0.62,
+      });
+
+      for (const [size, source] of [
+        [180, full],
+        [32, full],
+        [16, small],
+      ]) {
+        const name = `icon-${mark.slug}-${size}.png`;
+        const out = path.join(ASSET_DIR, name);
+
+        await sharp(source)
+          .resize(size, size)
+          .png({ compressionLevel: 9 })
+          .toFile(out);
+
+        const stat = await fs.stat(out);
+        console.log(
+          `${name}  ${size}x${size}  ${(stat.size / 1024).toFixed(1)} KB`,
+        );
+      }
+
+      // Cardin's mark doubles as the legacy /favicon.ico fallback.
+      if (mark.slug === "cn") await buildFavicon(full, small);
     }
-    await buildFavicon();
+
   } finally {
     await browser.close();
   }
@@ -174,14 +298,16 @@ async function main() {
  * The old .ico stored its entries as uncompressed BMP, which is how four small
  * icons reached 25 KB. ICO has allowed PNG payloads since Vista.
  */
-async function buildFavicon() {
-  const sizes = [16, 32, 48];
+async function buildFavicon(full, small) {
+  // 16 takes the single-letter cut for the same reason the PNG set does.
+  const sizes = [
+    [16, small],
+    [32, full],
+    [48, full],
+  ];
   const images = await Promise.all(
-    sizes.map((size) =>
-      sharp(path.join(ASSET_DIR, "mark.png"))
-        .resize(size, size)
-        .png({ compressionLevel: 9 })
-        .toBuffer(),
+    sizes.map(([size, source]) =>
+      sharp(source).resize(size, size).png({ compressionLevel: 9 }).toBuffer(),
     ),
   );
 
@@ -190,7 +316,7 @@ async function buildFavicon() {
   header.writeUInt16LE(sizes.length, 4);
 
   let offset = header.length + sizes.length * 16;
-  const entries = sizes.map((size, index) => {
+  const entries = sizes.map(([size], index) => {
     const entry = Buffer.alloc(16);
     entry[0] = size; // a 0 here would mean 256
     entry[1] = size;
@@ -208,7 +334,7 @@ async function buildFavicon() {
 
   const { size } = await fs.stat(out);
   console.log(
-    `favicon.ico  ${sizes.join("/")}px  ${(size / 1024).toFixed(1)} KB`,
+    `favicon.ico  ${sizes.map(([px]) => px).join("/")}px  ${(size / 1024).toFixed(1)} KB`,
   );
 }
 

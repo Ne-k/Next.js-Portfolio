@@ -53,6 +53,7 @@ const CardinPage: NextPage<CardinPageProps> = ({ projects }) => {
         url={site.url}
         keywords="Cardin Nguyen, Nek, backend developer, cybersecurity, penetration testing, digital forensics, TypeScript, Python, Portland Oregon, portfolio"
         jsonLd={jsonLd}
+        icon="cn"
       />
 
       <a

@@ -38,18 +38,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en" data-theme-pref="auto">
         <Head>
+          {/*
+            Only the legacy fallback lives here. The PNG icons are per-page, in
+            <Seo>, because this document is shared by all three hosts.
+          */}
           <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/assests/icon-32.png"
-          />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/assests/icon-180.png"
-          />
           <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
           {/*

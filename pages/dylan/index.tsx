@@ -12,6 +12,7 @@ const DylanPage: NextPage = () => {
         url="https://dylan.nguyen.ink"
         image="https://nguyen.ink/assests/og-nguyen.png"
         imageAlt="nguyen.ink"
+        icon="dn"
       />
 
       <main className="min-h-screen overflow-hidden">
