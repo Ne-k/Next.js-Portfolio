@@ -9,7 +9,7 @@ export type Project = {
   forks: number;
   topics: string[];
   archived: boolean;
-  pushedAt: string;
+  pushedAt: string | null;
 };
 
 type GitHubRepo = {
@@ -41,6 +41,28 @@ const HIDDEN_REPOS = new Set<string>(["nebulix"]);
  * the /users/:user/repos listing. Pinned to the front of the grid in this order.
  */
 const FEATURED_REPOS = ["2BDetermined-7034/2024-Crescendo"];
+
+/**
+ * Projects with no public repository behind them, listed by hand and pinned
+ * ahead of everything else. Ids are negative so they can never collide with
+ * GitHub's, and pushedAt is null because there are no commits to date them by.
+ */
+const MANUAL_PROJECTS: Project[] = [
+  {
+    id: -1,
+    name: "Razmai",
+    description:
+      "Discord bot for maimai DX. It reads your DX NET scores, works out where your skill actually sits, and ranks the charts where a realistic push gains the most rating. Rendered score images in Discord, plus a dashboard on the web.",
+    url: "https://razmai.nguyen.ink",
+    homepage: "https://razmai.nguyen.ink",
+    language: "TypeScript",
+    stars: 0,
+    forks: 0,
+    topics: ["Discord bot", "maimai DX", "Next.js"],
+    archived: false,
+    pushedAt: null,
+  },
+];
 
 /**
  * Fetches the user's most recently pushed public repositories.
@@ -80,14 +102,20 @@ function toProject(repo: GitHubRepo): Project {
   };
 }
 
-async function getFeatured(headers: Record<string, string>): Promise<Project[]> {
+async function getFeatured(
+  headers: Record<string, string>,
+): Promise<Project[]> {
   const results = await Promise.all(
     FEATURED_REPOS.map(async (fullName) => {
-      const response = await fetch(`https://api.github.com/repos/${fullName}`, { headers });
+      const response = await fetch(`https://api.github.com/repos/${fullName}`, {
+        headers,
+      });
 
       if (!response.ok) {
         // One missing pin should not take the whole section down.
-        console.error(`Featured repo ${fullName} responded with ${response.status}`);
+        console.error(
+          `Featured repo ${fullName} responded with ${response.status}`,
+        );
         return null;
       }
 
@@ -98,33 +126,52 @@ async function getFeatured(headers: Record<string, string>): Promise<Project[]> 
   return results.filter((project): project is Project => project !== null);
 }
 
+async function getOwned(headers: Record<string, string>): Promise<Project[]> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=pushed&type=owner`,
+      { headers },
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API responded with ${response.status}`);
+    }
+
+    const repos = (await response.json()) as GitHubRepo[];
+
+    return repos
+      .filter(
+        (repo) =>
+          !repo.fork &&
+          !repo.private &&
+          !HIDDEN_REPOS.has(repo.name.toLowerCase()),
+      )
+      .sort(
+        (left, right) =>
+          Date.parse(right.pushed_at) - Date.parse(left.pushed_at),
+      )
+      .map(toProject);
+  } catch (error) {
+    // An outage should thin the list out, not empty it of the manual entries.
+    console.error("Failed to load GitHub repositories:", error);
+
+    return [];
+  }
+}
+
 export async function getProjects(limit = 9): Promise<Project[]> {
   const headers = buildHeaders();
 
-  const [featured, response] = await Promise.all([
+  const [featured, owned] = await Promise.all([
     getFeatured(headers),
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=pushed&type=owner`, {
-      headers,
-    }),
+    getOwned(headers),
   ]);
 
-  if (!response.ok) {
-    throw new Error(`GitHub API responded with ${response.status}`);
-  }
+  const pinnedIds = new Set(featured.map((project) => project.id));
 
-  const repos = (await response.json()) as GitHubRepo[];
-  const featuredIds = new Set(featured.map((project) => project.id));
-
-  const owned = repos
-    .filter(
-      (repo) =>
-        !repo.fork &&
-        !repo.private &&
-        !HIDDEN_REPOS.has(repo.name.toLowerCase()) &&
-        !featuredIds.has(repo.id),
-    )
-    .sort((left, right) => Date.parse(right.pushed_at) - Date.parse(left.pushed_at))
-    .map(toProject);
-
-  return [...featured, ...owned].slice(0, limit);
+  return [
+    ...MANUAL_PROJECTS,
+    ...featured,
+    ...owned.filter((project) => !pinnedIds.has(project.id)),
+  ].slice(0, limit);
 }

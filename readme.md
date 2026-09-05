@@ -46,6 +46,12 @@ Mono for every label and readout, graphite ink on warm paper, and a single oxide
 there are no rounded corners, shadows, or gradients anywhere. Tokens live in the `@theme` block
 of [`styles/globals.css`](styles/globals.css) and are mirrored in [`public/doc.css`](public/doc.css).
 
+Motion is two gestures, not a reveal on every block. Hairline rules draw themselves left to right,
+because rules are what the layout is built from; section rules are driven by a CSS scroll timeline
+(`animation-timeline: view()`), so they need no observer and work on the landing page's zero-JS
+build. The hero plays one staggered entrance on load. Text never animates on scroll, so nothing is
+hidden waiting for a frame, and `prefers-reduced-motion` drops straight to the finished state.
+
 Dark mode is site-wide, with a three-state toggle (auto / light / dark) in the masthead and in the
 Cardin header. Auto follows `prefers-color-scheme`; an explicit choice is stored in a `theme`
 cookie scoped to `.nguyen.ink`, so it carries across all three subdomains, which cannot share

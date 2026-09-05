@@ -24,8 +24,13 @@ const Section = ({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="grid gap-x-10 gap-y-6 border-t border-ink pt-6 pb-20 md:grid-cols-[7rem_minmax(0,1fr)] sm:pb-28"
+      className="field grid gap-x-10 gap-y-6 pt-6 pb-20 md:grid-cols-[7rem_minmax(0,1fr)] sm:pb-28"
     >
+      <span
+        aria-hidden="true"
+        className="rule-draw rule-scroll absolute inset-x-0 top-0 block h-px bg-ink"
+      />
+
       <div className="flex items-baseline gap-3 md:sticky md:top-24 md:block md:self-start">
         <p className="label text-signal">{index}</p>
         {meta ? <p className="label text-ink-faint md:mt-2">{meta}</p> : null}

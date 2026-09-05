@@ -77,6 +77,16 @@
   --container-measure: 34rem;
 
   --breakpoint-custom: 400px;
+
+  /*
+   * One easing and two durations, shared by every transition and keyframe so
+   * the whole site moves the same way. Overriding Tailwind's defaults means
+   * every `transition-*` utility already in the markup adopts them too.
+   */
+  --ease-sheet: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-draw: 620ms;
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: var(--ease-sheet);
 }
 
 /*
@@ -241,13 +251,69 @@
 }
 
 /*
- * Motion is state change only -- hover, focus, the nav underline. Nothing
- * animates in, so no content is ever hidden waiting for a frame.
+ * Motion, in two gestures only.
+ *
+ * Rules draw themselves left to right, because hairlines are what this layout
+ * is built from -- it should read as a sheet being plotted, not as content
+ * fading in. Everything else is ordinary state change: hover, focus, the nav
+ * underline. Text never animates on scroll, so nothing is hidden waiting for a
+ * frame, and the section rules are drawn by CSS scroll timelines rather than
+ * an observer, which keeps them working on the landing page's zero-JS build.
  */
+
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* The rule above a datasheet field. */
+.field {
+  position: relative;
+}
+
+.rule-draw {
+  transform-origin: left;
+  animation: draw-rule var(--dur-draw) var(--ease-sheet) both;
+}
+
+/*
+ * The same rule, drawn by scroll position instead of on load. The subject has
+ * to be the hairline itself rather than the section around it: a view timeline
+ * measures its own subject, and a section taller than the viewport never
+ * finishes "entering", so its progress would barely leave zero.
+ */
+@supports (animation-timeline: view()) {
+  .rule-scroll {
+    animation-timeline: view();
+    animation-range: cover 0% cover 25%;
+  }
+}
+
+/* The one load choreography: masthead rule, then the content under it. */
+.settle {
+  animation: settle var(--dur-draw) var(--ease-sheet) both;
+  animation-delay: var(--settle-delay, 0ms);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Land on the finished state rather than racing through the keyframes. */
+  .rule-draw,
+  .settle {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   *,

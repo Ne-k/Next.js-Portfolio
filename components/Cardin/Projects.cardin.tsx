@@ -10,7 +10,9 @@ const monthFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 
-const formatUpdated = (iso: string) => {
+const formatUpdated = (iso: string | null) => {
+  if (!iso) return null;
+
   const parsed = Date.parse(iso);
 
   return Number.isNaN(parsed) ? null : monthFormatter.format(parsed);
@@ -25,9 +27,9 @@ const Projects = ({ projects }: ProjectsProps) => {
     <Section
       id="projects"
       index="03"
-      meta="From GitHub"
+      meta="Selected"
       title="Things I have built"
-      description="Pulled from my GitHub and sorted by whatever I touched most recently, so this list stays honest."
+      description="Pulled from my GitHub and sorted by whatever I touched most recently, plus the things that do not live in a public repo."
     >
       {projects.length === 0 ? (
         <div className="max-w-measure border border-rule bg-paper-sunk p-8">
@@ -60,7 +62,7 @@ const Projects = ({ projects }: ProjectsProps) => {
                 >
                   <span
                     aria-hidden="true"
-                    className="label pt-1 text-ink-faint"
+                    className="label pt-1 text-ink-faint transition-colors group-hover:text-signal"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
