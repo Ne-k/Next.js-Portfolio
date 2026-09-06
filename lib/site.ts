@@ -10,7 +10,7 @@ export const site = {
   discord: "https://discord.com/users/399703609685835778",
   instagram: "https://www.instagram.com/nekk.ng/",
   spotify: "https://open.spotify.com/user/mewz8iujhbqn1rwndb37q7tda",
-  resume: "/CN_Resume.pdf",
+  resume: "/resume",
 } as const;
 
 export const navLinks = [

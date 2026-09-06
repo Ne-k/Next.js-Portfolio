@@ -4,7 +4,7 @@ import { pathToFileURL } from "url";
 import puppeteer from "puppeteer";
 
 const ROOT_DIR = path.resolve(process.cwd());
-const PUBLIC_DIR = path.join(ROOT_DIR, "public");
+const DOCUMENTS_DIR = path.join(ROOT_DIR, "documents");
 
 const DOCUMENTS = [
   {
@@ -20,8 +20,8 @@ const DOCUMENTS = [
 ];
 
 async function renderPdf(page, { source, output, format }) {
-  const inputPath = path.join(PUBLIC_DIR, source);
-  const outputPath = path.join(PUBLIC_DIR, output);
+  const inputPath = path.join(DOCUMENTS_DIR, source);
+  const outputPath = path.join(DOCUMENTS_DIR, output);
   const fileUrl = pathToFileURL(inputPath).toString();
 
   await page.goto(fileUrl, { waitUntil: "networkidle0" });

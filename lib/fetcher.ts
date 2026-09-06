@@ -1,5 +1,5 @@
 /** Minimal JSON fetcher for SWR. Uses the platform `fetch`, no extra runtime dependency. */
-const fetcher = async <T,>(url: string): Promise<T> => {
+const fetcher = async <T>(url: string): Promise<T> => {
   const response = await fetch(url);
 
   if (!response.ok) {

@@ -1,11 +1,10 @@
 User-agent: *
 Allow: /
 
-# Personal contact details live in these documents; keep them out of search results.
-Disallow: /CN_Resume.pdf
-Disallow: /CN_Resume.html
-Disallow: /CN_References.pdf
-Disallow: /CN_References.html
+# Personal contact details live in these documents; keep them out of search
+# results. The files themselves sit behind a Turnstile check on /resume.
+Disallow: /resume
+Disallow: /references
 Disallow: /api/
 
 Sitemap: https://nguyen.ink/sitemap.xml

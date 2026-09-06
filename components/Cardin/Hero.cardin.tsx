@@ -80,7 +80,7 @@ const Hero = () => {
                 rel="noopener noreferrer"
                 className="label border border-ink px-5 py-3 text-ink transition-colors hover:bg-ink hover:text-paper active:translate-y-px"
               >
-                Resume (PDF)
+                Resume
               </a>
 
               <a

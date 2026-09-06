@@ -3,7 +3,10 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+  },
   { key: "X-DNS-Prefetch-Control", value: "on" },
 ];
 
@@ -11,6 +14,11 @@ module.exports = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+
+  // The gated PDFs live outside public/, so tracing has to be told about them.
+  outputFileTracingIncludes: {
+    "/api/documents/[doc]": ["./documents/*.pdf"],
+  },
 
   // Several sibling repos live under the same parent folder, so Turbopack's
   // root inference walks too far up and fails to resolve `tailwindcss`.
@@ -27,12 +35,22 @@ module.exports = {
       {
         // Fingerprinted-by-hand assets: safe to cache hard.
         source: "/assests/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+        ],
       },
       {
         // Font files are immutable: the name pins family, weight, and subset.
         source: "/fonts/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
       },
     ];
   },
@@ -66,14 +84,20 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/resume",
-        destination: "/CN_Resume.pdf",
+        // Both documents now sit behind the check on /resume.
+        source: "/references",
+        destination: "/resume",
+        permanent: false,
+      },
+      {
+        source: "/CN_Resume.pdf",
+        destination: "/resume",
         permanent: true,
       },
       {
-        source: "/references",
-        destination: "/CN_References.pdf",
-        permanent: false,
+        source: "/CN_References.pdf",
+        destination: "/resume",
+        permanent: true,
       },
     ];
   },

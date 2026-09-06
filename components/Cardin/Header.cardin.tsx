@@ -165,7 +165,7 @@ const Header = () => {
             onClick={() => setOpen(false)}
             className="label mt-6 block border border-ink py-3 text-center text-ink"
           >
-            Resume (PDF)
+            Resume
           </a>
 
           <div className="mt-6 flex items-center justify-between">

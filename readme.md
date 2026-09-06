@@ -44,7 +44,7 @@ The site, the resume, and the reference sheet are one system: IBM Plex Sans for 
 Mono for every label and readout, graphite ink on warm paper, and a single oxide accent
 (`#b4331d`) used only for emphasis. Structure comes from hairline rules rather than cards, so
 there are no rounded corners, shadows, or gradients anywhere. Tokens live in the `@theme` block
-of [`styles/globals.css`](styles/globals.css) and are mirrored in [`public/doc.css`](public/doc.css).
+of [`styles/globals.css`](styles/globals.css) and are mirrored in [`documents/doc.css`](documents/doc.css).
 
 Motion is two gestures, not a reveal on every block. Hairline rules draw themselves left to right,
 because rules are what the layout is built from; section rules are driven by a CSS scroll timeline
@@ -72,10 +72,21 @@ since every link on it points at a different host and nothing holds state.
 - **Now playing** hits `/api/now-playing`, which is cached for 60 seconds and always returns 200
   so a Spotify outage cannot break the page.
 - **Site details** (email, socials, nav) live in [`lib/site.ts`](lib/site.ts).
-- **Resume and references** are authored as HTML in `public/` and rendered to PDF with Puppeteer.
-  Both share [`public/doc.css`](public/doc.css), which carries the same type and colour system as
-  the site and self-hosts its fonts from `public/fonts/` so the `file://` render resolves them.
-  Edit the HTML, then run `npm run render:pdfs`.
+- **Resume and references** are authored as HTML in `documents/` and rendered to PDF with
+  Puppeteer. Both share [`documents/doc.css`](documents/doc.css), which carries the same type and
+  colour system as the site and pulls its fonts from `public/fonts/` so the `file://` render
+  resolves them. Edit the HTML, then run `npm run render:pdfs`.
+- **The PDFs are gated by Cloudflare Turnstile**, because both carry a phone number and the
+  reference sheet carries other people's. They sit in `documents/` rather than `public/` so Next
+  never serves them as static files: `/resume` renders the check, `/api/turnstile` trades a solved
+  challenge for a 30-minute HttpOnly cookie signed with `CF_SECRET`, and `/api/documents/[doc]`
+  streams a file only to a caller holding one. Everything is sent `no-store`, so no CDN keeps a
+  copy of an access-controlled file.
+
+  Set `CF_KEY` and `CF_SECRET` to turn it on. With neither set the documents are served freely in
+  development and refused in production, because a check that fails open is not a check.
+  Cloudflare's test keys (`1x00000000000000000000AA` and `1x0000000000000000000000000000000AA`)
+  work well locally.
 - **Social cards and favicons** are generated, not hand-made. [`scripts/render-og.mjs`](scripts/render-og.mjs)
   screenshots two 1200x630 cards and draws one favicon per host: `cn` for Cardin, `dn` for Dylan,
   `n` for the landing page, each as `icon-<slug>-{16,32,180}.png`. The mark is the masthead's
