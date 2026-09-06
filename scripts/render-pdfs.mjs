@@ -1,3 +1,4 @@
+import fs from "fs/promises";
 import path from "path";
 import { pathToFileURL } from "url";
 
@@ -38,6 +39,25 @@ async function renderPdf(page, { source, output, format }) {
     printBackground: true,
     preferCSSPageSize: true,
   });
+
+  await freezeTimestamps(outputPath);
+}
+
+/*
+ * Chrome stamps the current time into /CreationDate and /ModDate, which is the
+ * only thing that differs between two renders of identical input. Left alone,
+ * every render produces a new blob, the pre-push hook sees a change, and asks
+ * for a commit it will ask for again next time.
+ *
+ * The replacement is deliberately the same length as what it overwrites: a PDF
+ * xref table stores byte offsets, so changing the size would corrupt the file.
+ */
+async function freezeTimestamps(outputPath) {
+  const EPOCH = "D:20000101000000+00'00'";
+  const pdf = await fs.readFile(outputPath, "latin1");
+  const frozen = pdf.replace(/D:\d{14}\+00'00'/g, EPOCH);
+
+  await fs.writeFile(outputPath, frozen, "latin1");
 }
 
 async function main() {
